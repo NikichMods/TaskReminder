@@ -125,8 +125,8 @@ The data alone does not resolve these meanings:
 
 The snapshot has no typed task deadline. “Tomorrow” can mean tomorrow's weekly NPC with the tasks known **now**, not a prediction of tasks that will unlock overnight. NPCs outside the six-row mapping have no inferred weekday. Do not expose future task text just because it exists in localization resources.
 
-## Evidence limits and next decision
+## Evidence limits and subsequent adoption
 
-No new DLL, build, install or game-runtime test was performed. No native state or files were changed. Current-save readiness, UI geometry/final layout, actual language-switch redraw, compatibility with installed mods and the complete multi-NPC/DLC task universe remain unverified for this project.
+This original static investigation performed no DLL build, installation or runtime test; subsequent candidates and their bounded evidence are recorded in TEST_LOG.md. No native state or files were changed. Current-save readiness, UI geometry/final layout, actual language-switch redraw, compatibility with installed mods and the complete multi-NPC/DLC task universe remain unverified for this project.
 
-The native source hypothesis is supported at the static data level. The next useful product decision is whether the first display means **tasks belonging to today's NPC** (including preparation) or **actions available today**. If the former is adopted, native journal data is a substantially smaller starting mechanism; if the latter is required, use the verified interaction evidence deliberately and budget for its additional semantics. Exact implementation remains unselected.
+The native source hypothesis is supported at the static data level. The user subsequently adopted **tasks belonging to today's NPC**, including preparation, with explicitly Visible filtering and next-day tasks below. This is implemented by ReminderPolicy/ReminderView. Actionable-visit filtering and cross-NPC route reassignment remain outside scope. Current appearance/readiness is owned by PRERELEASE.md, not this historical research snapshot.

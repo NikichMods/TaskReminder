@@ -1,40 +1,21 @@
 # Design and Current State
 
-## Recovery entry point
+Current phase: prerelease candidate0.1.4 on codex/feature/native-reminder. The user selected the tuned0.1.3 view as final and requested removal of F2. PRERELEASE.md owns this decision, final values, readiness gate and remaining acceptance. TEST_LOG.md owns exact artifact/install identities. No stable promotion/publication yet.
 
-Phase: coordinated appearance candidate0.1.3 on codex/feature/native-reminder after the user's0.1.0 screenshot/settings return. Caption controls/independent lines/native day symbols/marker effect isolation and lightweight readability options are implemented under VISUAL_REFINEMENT.md. Exact build/install/return identity is owned by TEST_LOG.md. Runtime acceptance and stable promotion remain pending. Start DEVELOPMENT.md for the current return procedure, then owning evidence as needed.
+## Data and rendering
 
-Project identity is confirmed: Task Reminder / [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public. The user created the remote; its initial main commit is 08e9edcf69c96712e97f7010bbd3c5536b5bd289, containing the project title and weekday-task description in README.md. Preserve that history. The existing Codex project and checkout are reused. The repository contract, product/design/evidence documents and license form the documentation baseline; no production implementation is implied.
+The static journal-source hypothesis is supported: GameSave.known_npcs -> KnownNPC.tasks supplies localized, disclosed objectives without gameplay dialogue parsing. TASK_DATA_RESEARCH.md records native storage/rendering and calendar evidence. ReminderPolicy reads explicitly Visible records and maps current/next save day to the six weekday NPCs. Missing inventory never suppresses a reminder.
 
-## Why a separate mod
+Plugin checks current-save/player ownership and language readiness, observes native task state changes plus bounded quarter-second lifecycle checks, and redraws only when dirty. ReminderView owns labels below the stable calendar frame; native HUD ancestry supplies scaling/alpha and native menu visibility. TextDecorations measures native processed wraps and owns pooled, separate per-line shading textures. Icons remain separate from text backing. No host font, atlas or quest mutation occurs.
 
-The user asked for a small text reminder below the calendar. Day Wheel Quest Markers is an existing related mod with accepted interaction-marker semantics. Its research can save work, but it does not answer the same product question. Treat this as a separate proposed mod; merging it into the marker mod or requiring that DLL would be a consequential design decision.
+The final profile is manual Journal14/raster24/Outline, names hidden, width130; all saved values are pinned by tests/FinalAppearance.cfg. The optional documented Planner profile remains readable through existing config compatibility, but is off in the selected view. Neither Planner nor the related Day Wheel Quest Markers is a dependency. Original Plan-style alternatives and the interactive mockup are historical design evidence; the lightweight direction and final in-game tuning now govern.
 
-## Adopted scope and proposed visual design
+## Player surface and recovery
 
-The user adopted all known tasks owned by today's NPC, including missing-item preparation tasks, and next day's below. Known means explicitly Visible in the first implementation; Complete/Unknown are excluded to preserve disclosed-objective semantics. The user accepted the lightweight preview and requested native live tuning. IMPLEMENTATION_GATE.md records the verified native seam/first-candidate bounds; actual visual and input behavior is awaiting the installed return.
+0.1.4 has no SettingsPanel, OnGUI editor, F2/Esc handler or input Harmony guards. Options binds final defaults and respects existing configuration without saving. The native task-state postfix and renderer lifecycle remain. Editor source can be recovered from68b0abc55f26e173574100c8b9b396f411bd0430 only after a new request; this does not authorize shipping it again now.
 
-The authorized early mockup compares two presentations of the same adopted content:
+Plugin.Version owns0.1.4; assembly/file metadata and immutable filename derive from it. Earlier handed versions remain frozen. build.ps1 performs exact-source SDK6.0.406 Roslyn compile/version/actual-assembly checks using private installed references; no hosted reference provisioning is selected.
 
-- lightweight text with NPC/day headings and no task-block backing;
-- two visually separated sections with restrained dark backing for busy terrain.
+## Next useful step
 
-Historical preview states cover current weekday, ordinary/many/empty task lists, day/night contrast and density. Its calendar/world backdrop and some fixture texts are schematic. The user selected **Лёгкий текст**, then separately authorized in-game implementation and persistent F2 appearance controls. Browser rendering is not installed-game visual acceptance.
-
-Preview names: **Лёгкий текст** (selected) and **Две секции** (not selected). Preview checks remain historical illustration evidence; the private path is in LOCAL_ENVIRONMENT.md. Native sizes/widths are initial values to tune through F2, not an assertion of pixel equivalence to the browser.
-
-## Completed data investigation and its decision value
-
-Question examined: can the native journal supply the currently disclosed, localized task rows and their NPC ownership without parsing dialogue graphs during ordinary gameplay?
-
-Result: yes at the static data level for tasks owned by the six weekday NPCs. TASK_DATA_RESEARCH.md records exact assemblies/resources, storage and native renderer, localization/formatting, native chronological conversion and direct data corroboration. No probe or game-runtime test was needed. Native completion can commit after a UI callback; exact refresh/readiness/placement for the future overlay remains a separate investigation.
-
-This makes a small text view plausible if the requested meaning is tasks belonging to today's NPC, including preparation. Journal ownership alone does not identify the next NPC for intermediate steps or current actionability; those meanings need authored-route semantics. Do not silently replace preparation reminders with actionable interactions merely because the latter already exists.
-
-## Open decisions / next actions
-
-1. Return the exact0.1.3 candidate under TEST_LOG.md; compare Planner style on/off, whole-block scaling, name-row collapse and quest-symbol size/shadow. Verify cancel restores the new controls too. Earlier caption/icon/readability acceptance remains bounded. Compilation is not visual acceptance.
-2. Read the accessible installed log after the return; fix concrete defects or preserve accepted tuning values in the next immutable candidate. Eligibility, both day sections and lightweight direction are settled.
-3. Promote reusable accepted host findings to GraveyardKeeperResearch through its own safe checkout/workflow; do not disturb its unrelated active research branch. Stable promotion requires explicit acceptance of the exact tested artifact.
-
-Plugin GUID: nikich.gyk.taskreminder. Version owner: Plugin.Version (0.1.3).0.1.0 through0.1.2 stay frozen. build.ps1 owns the clean exact-source SDK6.0.406 Roslyn gate against private installed references and actual-assembly policy/config-migration checks. No hosted runner/reference provisioning is selected. DEVELOPMENT.md owns build instructions; TEST_LOG.md owns immutable artifact/source identity.
+Run the installed0.1.4 with the same save: confirm the accepted view survives removal of the editor, F2 opens no Task Reminder UI, input and native HUD/menu return work. Natural task/day/save transitions then extend functional coverage without reopening accepted styling. A concrete defect may require a new candidate; an explicit stable acceptance later authorizes the normal main/tag/exact-byte Release sequence. DEVELOPMENT.md owns mechanics, TEST_LOG.md the evidence. Reusable host findings remain distinct from this product's acceptance and can be promoted to shared research under its own safe workflow.

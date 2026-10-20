@@ -1,8 +1,18 @@
 # Candidate test log
 
+## 0.1.4 — final appearance, no editor; prerelease
+
+Status: implementation and development actual-assembly gate pass; clean-source immutable build/install identity follows. User explicitly limits acceptance to final appearance and prerelease testing. No stable main/tag/Release promotion.
+
+Scope: every saved final0.1.3 appearance value becomes a shipped default; existing overrides preserved; SettingsPanel/F2/Esc/OnGUI/input guards and transaction helpers removed. Rendering/data/refresh sources are unchanged. PRERELEASE.md owns the READY gate and final baseline.
+
+Checks: all fresh actual BepInEx entries match tests/FinalAppearance.cfg, old-config loading writes no bytes, compiled editor/guard types and entry points are absent. Native weekday/Visible/order/null/header and optional Planner coordinate checks pass. No claim of0.1.4 native rendering/input observation from compilation.
+
+Requested return: same final view, no Task Reminder panel on F2, ordinary input and native menu/HUD return, reload. Collect broader natural task/day/save observations during continued testing; do not reopen styling without a concrete issue.
+
 ## 0.1.3 — coordinated appearance
 
-Status: exact candidate built and installed with the game closed; native visual acceptance pending. Gate: VISUAL_REFINEMENT.md. All preceding artifacts remain immutable; no stable promotion.
+Status: historical tuning candidate; user accepts its saved appearance as final for prerelease testing on2026-10-20. Native log reaches TR_READY and final TR_SETTINGS width130/Journal14/Outline/namesFalse/quest9/scale100/PlannerFalse. Return log SHA-256 a6a80a2c53707886a07815505c86fe0e75d040e4ef477a92e86f0499fb444127; saved configuration SHA-256 b110c1be59395dd8625e2bb34a9955754291842cc4f91dd3a8ef723e82bb2d2d. Current gate is PRERELEASE.md; VISUAL_REFINEMENT.md is historical. No stable promotion or exhaustive functional acceptance.
 
 Exact source68b0abc55f26e173574100c8b9b396f411bd0430. Immutable TaskReminder-0.1.3.dll,40,448 bytes,SHA-256 b7b6b1729422422e5f0d8ac076ea61f9f59f10a1c39b6972d8d205808ef72ec2. Clean Release/version0.1.3.0/actual-assembly checks pass. Installed canonical TaskReminder.dll has identical hash; one project payload. Prior0.1.2 and config backed up outside loading. Config SHA-256 dabb2e7c11f1ef9e41ad6c48a847f13293e3bb6e9620a106643a693c65651a14 unchanged. No game launched, Planner/other mods or saves changed. No0.1.3 native observation claimed.
 

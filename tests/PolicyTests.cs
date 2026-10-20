@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MPL-2.0
 using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -12,7 +14,7 @@ internal static class PolicyTests
     {
         _paths = args;
         AppDomain.CurrentDomain.AssemblyResolve += Resolve;
-        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, old-config migration/persistence, settings rollback/isolated defaults, Planner profile/frame scale, input signatures"); return 0; }
+        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, frozen final defaults, read-only config compatibility, Planner profile/frame scale, compiled no-editor surface"); return 0; }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }
     }
     private static Assembly Resolve(object sender, ResolveEventArgs args)
@@ -51,61 +53,40 @@ internal static class PolicyTests
         Require(ReminderPolicy.CaptionRowHeight(false, true, 20, 1) == 5, "Divider-only header must ignore hidden text height");
         Require(ReminderPolicy.CaptionRowHeight(true, false, 20, 1) == 24, "Text-only header height mismatch");
         Require(ReminderPolicy.CaptionRowHeight(true, true, 20, 1) == 24, "Combined header height mismatch");
-        string configPath = Path.Combine(Path.GetDirectoryName(_paths[2]), "migration-check.cfg");
-        File.WriteAllText(configPath, "[Appearance]\nOffsetX = 12\nWidth = 154\nFontSize = 13\nHeadingSize = 14\nLineSpacing = -4\nEffectSize = 1\nFont = Items\nEffect = Shadow\n");
+        string configPath = Path.Combine(Path.GetDirectoryName(_paths[2]), "final-defaults-check.cfg");
+        File.WriteAllText(configPath, "");
         var config = new BepInEx.Configuration.ConfigFile(configPath, false);
         var options = new Options(config);
-        Require(options.X.Value == 12 && options.Width.Value == 154 && options.FontSize.Value == 13 && options.LineSpacing.Value == -4 && options.Font.Value == NativeFont.Items, "Existing config values changed");
-        Require(options.EffectSize.Value == 1f && options.CaptionSize.Value == 16, "Effect/caption migration mismatch");
-        options.ShowCaptions.Value = false; options.ShowDividers.Value = true; options.Save();
+        var expectedSettings = new Dictionary<string, string>();
+        foreach (string line in File.ReadAllLines(_paths[3]))
+        {
+            int equals = line.IndexOf('=');
+            if (equals > 0) expectedSettings.Add(line.Substring(0, equals).Trim(), line.Substring(equals + 1).Trim());
+        }
+        int count = 0;
+        foreach (var entry in config)
+        {
+            string expectedValue;
+            Require(expectedSettings.TryGetValue(entry.Key.Key, out expectedValue), "Unpinned default " + entry.Key.Key);
+            Require(string.Equals(Convert.ToString(entry.Value.BoxedValue, CultureInfo.InvariantCulture), expectedValue, StringComparison.OrdinalIgnoreCase), "Final default mismatch " + entry.Key.Key);
+            Require(Equals(entry.Value.BoxedValue, entry.Value.DefaultValue), "Fresh value differs from default"); count++;
+        }
+        Require(count == expectedSettings.Count && count > 30, "Final fixture coverage mismatch");
+        Require(File.ReadAllText(configPath) == "", "Loading fresh defaults wrote config");
+        File.WriteAllText(configPath, "[Appearance]\nOffsetX = 12\nWidth = 154\nFontSize = 13\nHeadingSize = 14\nLineSpacing = -4\nEffectSize = 1\nFont = Items\nEffect = Shadow\n");
+        string oldBytes = File.ReadAllText(configPath);
         var restored = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
-        Require(!restored.ShowCaptions.Value && restored.ShowDividers.Value && restored.Width.Value == 154, "Independent header settings did not persist");
-        string savedBytes = File.ReadAllText(configPath);
-        var snapshot = options.Capture();
-        foreach (var item in snapshot)
-        {
-            object value = item.Value;
-            if (value is int) item.Key.BoxedValue = (int)value + 1;
-            else if (value is float) item.Key.BoxedValue = (float)value - .1f;
-            else if (value is bool) item.Key.BoxedValue = !(bool)value;
-        }
-        options.Font.Value = NativeFont.Journal; options.Effect.Value = TextEffect.Outline;
-        options.Restore(snapshot);
-        foreach (var item in snapshot) Require(Equals(item.Key.BoxedValue, item.Value), "Cancel failed for " + item.Key.Definition.Key);
-        Require(File.ReadAllText(configPath) == savedBytes, "Preview/cancel wrote disk");
-        options.CaptionSize.Value = 21; options.ShadeOffsetY.Value = -7; options.Save();
-        var reopened = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
-        Require(reopened.CaptionSize.Value == 21 && reopened.ShadeOffsetY.Value == -7, "Saved caption/offset lost");
-        var baseline = reopened.Capture();
-        foreach (var item in baseline)
-        {
-            if (!(item.Value is int) && !(item.Value is float)) continue;
-            Options.Reset(item.Key);
-            Require(Equals(item.Key.BoxedValue, item.Key.DefaultValue), "Slider reset mismatch");
-            foreach (var other in baseline)
-                if (!ReferenceEquals(other.Key, item.Key)) Require(Equals(other.Key.BoxedValue, other.Value), "Reset affected another entry");
-            reopened.Restore(baseline);
-        }
-        Require((int)reopened.CaptionSize.DefaultValue == 16 && (int)reopened.ShadeOffsetY.DefaultValue == 0, "Unstable defaults");
-        var secondSession = reopened.Capture(); reopened.Width.Value = 300; reopened.Restore(secondSession);
-        Require(reopened.Width.Value == 154 && reopened.CaptionSize.Value == 21, "Reopened cancel baseline mismatch");
-        var manual = reopened.Capture();
-        var style = new Appearance(reopened);
-        Require(!style.Matched && style.Width == 154 && style.FontSize == 13 && Math.Abs(style.Scale - 1f) < .0001f, "Manual appearance changed");
-        reopened.MatchPlanner.Value = true;
-        Require(style.Matched && style.Width == 286 && style.FontSize == 24 && style.CaptionSize == 21 && style.Font == NativeFont.Items, "Planner typography mismatch");
-        Require(style.Effect == TextEffect.Outline && style.EffectSize == 1 && Math.Abs(style.EffectAlpha - .8f) < .0001f && !style.RasterProfile, "Planner effect pipeline mismatch");
-        Require(Math.Abs(style.Scale - .65f) < .0001f && style.TomorrowAlpha == 1 && style.TextAlpha == 1 && style.SoftShade, "Planner scale/opacity mismatch");
-        Require(Math.Abs(style.ShadeAlpha - .39f) < .0001f && style.Feather(24) == 12, "Narrow Planner shade mismatch");
-        reopened.ScalePercent.Value = 150;
-        Require(Math.Abs(style.Scale - .975f) < .0001f, "Whole block multiplier mismatch");
-        reopened.ShowNames.Value = false; reopened.QuestIconSize.Value = 36; reopened.QuestIconShadow.Value = true;
-        reopened.Save();
-        var matchedReload = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
-        Require(matchedReload.MatchPlanner.Value && !matchedReload.ShowNames.Value && matchedReload.QuestIconSize.Value == 36 && matchedReload.QuestIconShadow.Value && matchedReload.ScalePercent.Value == 150, "New settings did not persist");
-        reopened.Restore(manual);
-        foreach (var item in manual) Require(Equals(item.Key.BoxedValue, item.Value), "Style mode changed manual settings");
-        Require(style.Width == 154 && style.FontSize == 13 && style.CaptionSize == 21, "Manual style not restored");
+        Require(restored.X.Value == 12 && restored.Width.Value == 154 && restored.FontSize.Value == 13 && restored.Font.Value == NativeFont.Items && restored.Effect.Value == TextEffect.Shadow, "Existing override changed");
+        Require(restored.CaptionSize.Value == 8 && restored.EffectSize.Value == 1f, "Missing-key defaults or effect migration mismatch");
+        Require(File.ReadAllText(configPath) == oldBytes, "Existing config load wrote disk");
+        var style = new Appearance(options);
+        Require(!style.Matched && style.Width == 130 && style.FontSize == 14 && style.CaptionSize == 8 && style.Font == NativeFont.Journal && style.Effect == TextEffect.Outline, "Final effective appearance changed");
+        Require(!options.ShowNames.Value && options.QuestIconSize.Value == 9 && !options.QuestIconShadow.Value && options.ScalePercent.Value == 100 && options.ShadeOffsetY.Value == -3, "Final visibility/icons/scale changed");
+        options.MatchPlanner.Value = true;
+        Require(style.Width == 286 && style.FontSize == 24 && style.CaptionSize == 21 && style.Font == NativeFont.Items && style.Effect == TextEffect.Outline && !style.RasterProfile, "Preserved Planner config profile mismatch");
+        Require(Math.Abs(style.Scale - .65f) < .0001f && Math.Abs(style.ShadeAlpha - .39f) < .0001f, "Planner scale/backing mismatch");
+        options.MatchPlanner.Value = false;
+        Require(style.Width == 130 && style.FontSize == 14, "Final profile restoration mismatch");
         foreach (float hudScale in new[] { .75f, 1f, 1.1f, 2f })
         {
             var converted = Appearance.InHudScale(new UnityEngine.Vector3(1f / hudScale, 0, 0), new UnityEngine.Vector3(0, 1f / hudScale, 0), .65f);
@@ -122,20 +103,16 @@ internal static class PolicyTests
         try { Appearance.InHudScale(new UnityEngine.Vector3(1, .1f, 0), new UnityEngine.Vector3(0, 1, 0), .65f); }
         catch (InvalidOperationException) { rotatedRejected = true; }
         Require(rotatedRejected, "Rotated coordinate basis accepted");
-        foreach (string name in new[] { "GetKey", "GetKeyDown", "AnyClick", "AnyKeyDown" })
-        {
-            bool found = false;
-            foreach (var method in typeof(LazyInput).GetMethods(BindingFlags.Public | BindingFlags.Static))
-                if (method.Name == name && method.ReturnType == typeof(bool)) found = true;
-            Require(found, "Missing native input guard family " + name);
-        }
-        foreach (string name in new[] { "GetDirection", "GetDirection2" })
-        {
-            bool found = false;
-            foreach (var method in typeof(LazyInput).GetMethods(BindingFlags.Public | BindingFlags.Static))
-                if (method.Name == name && method.ReturnType == typeof(UnityEngine.Vector2)) found = true;
-            Require(found, "Missing native direction guard family " + name);
-        }
+        Assembly candidate = typeof(Plugin).Assembly;
+        foreach (string removed in new[] { "SettingsPanel", "SettingsKeyGuard", "SettingsDirectionGuard" })
+            Require(candidate.GetType("TaskReminder." + removed) == null, "Editor/input guard still compiled: " + removed);
+        Require(typeof(Plugin).GetMethod("OnGUI", BindingFlags.NonPublic | BindingFlags.Instance) == null, "Editor draw hook still compiled");
+        foreach (string removed in new[] { "CanOpenPanel", "LogSettings", "Changed" })
+            Require(typeof(Plugin).GetMethod(removed, BindingFlags.NonPublic | BindingFlags.Instance) == null, "Editor entry still compiled");
+        foreach (string removed in new[] { "Save", "Capture", "Restore", "Reset" })
+            Require(typeof(Options).GetMethod(removed, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static) == null, "Editor config mutation helper still compiled");
+        Require(candidate.GetType("TaskReminder.TaskChangedPatch") != null, "Native task refresh patch lost");
+
     }
     private static void Require(bool pass, string message) { if (!pass) throw new Exception(message); }
 }

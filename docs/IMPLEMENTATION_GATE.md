@@ -1,3 +1,5 @@
+> Historical candidate gates. The current final-appearance/no-editor prerelease decision is owned by [PRERELEASE.md](PRERELEASE.md); earlier F2 tuning requirements below are superseded for the player candidate.
+
 # First native candidate — readiness checkpoint
 
 The user accepted **Лёгкий текст** and authorized in-game implementation plus persistent F2 controls on 2026-10-20. The preview's compact/260 setting is an initial tuning reference, not verified Unity geometry.

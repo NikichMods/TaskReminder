@@ -11,29 +11,26 @@ namespace TaskReminder
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Guid = "nikich.gyk.taskreminder";
-        public const string Version = "0.1.3";
+        public const string Version = "0.1.4";
         internal static Plugin Instance;
         private readonly FieldInfo _inventory = AccessTools.Field(typeof(GameSave), "_inventory");
         private readonly FieldInfo _playerData = AccessTools.Field(typeof(WorldGameObject), "_data");
         private readonly FieldInfo _currentLanguage = AccessTools.Field(typeof(GJL), "cur_lng");
         private Harmony _harmony;
         private Options _options;
-        private SettingsPanel _settings;
         private ReminderView _view;
         private GameSave _save;
         private object _language;
         private int _day = -1;
         private float _nextCheck;
         private bool _dirty = true, _failed, _logged;
-        internal bool PanelOpen { get { return _settings != null && _settings.IsOpen; } }
-        internal bool InputBlocked { get { return _settings != null && _settings.BlocksInput; } }
         internal static void Dirty() { if (Instance != null) Instance._dirty = true; }
         private void Awake()
         {
             Instance = this;
             try
             {
-                _options = new Options(Config); _settings = new SettingsPanel(this, _options);
+                _options = new Options(Config);
                 if (_inventory == null || _playerData == null || _currentLanguage == null) throw new MissingFieldException("Current-save/language ownership fields unavailable");
                 _harmony = new Harmony(Guid); _harmony.PatchAll(typeof(Plugin).Assembly);
                 Logger.LogInfo("TR_START version=" + Version + " host_mvid=" + typeof(GameSave).Module.ModuleVersionId + " state=waiting-for-game");
@@ -47,16 +44,11 @@ namespace TaskReminder
             object inventory = _inventory.GetValue(game.save);
             return inventory != null && ReferenceEquals(inventory, _playerData.GetValue(game.player)) && game.save.known_npcs != null;
         }
-        internal bool CanOpenPanel()
-        { return !_failed && Ready() && GUIElements.me.hud.gameObject.activeInHierarchy && GUIElements.me.hud.panel.alpha > .05f && BaseGUI.all_guis_closed; }
         private void Update()
         {
             if (_failed) return;
             try
             {
-                if (_settings.IsOpen && !CanOpenPanel()) _settings.Close(false);
-                if (Input.GetKeyDown(KeyCode.F2)) { if (_settings.IsOpen) _settings.Close(true); else if (CanOpenPanel()) _settings.Open(); }
-                if (_settings.IsOpen && Input.GetKeyDown(KeyCode.Escape)) _settings.Close(false);
                 if (Time.unscaledTime < _nextCheck) return;
                 _nextCheck = Time.unscaledTime + .25f;
                 if (!Ready()) { if (_view != null) _view.SetVisible(false); _save = null; return; }
@@ -82,32 +74,18 @@ namespace TaskReminder
             }
             catch (Exception ex) { Fail(ex); }
         }
-        private void OnGUI() { if (!_failed && _settings != null) try { _settings.Draw(); } catch (Exception ex) { Fail(ex); } }
-        internal void Changed() { _dirty = true; }
-        internal int DisplayHeight { get { return _view == null ? 0 : _view.Height; } }
-        internal void LogSettings() { Logger.LogInfo("TR_SETTINGS x=" + _options.X.Value + " y=" + _options.Y.Value + " width=" + _options.Width.Value + " font=" + _options.Font.Value + " size=" + _options.FontSize.Value + " effect=" + _options.Effect.Value + " caption=" + _options.ShowCaptions.Value + " divider=" + _options.ShowDividers.Value + " profile=" + _options.PlannerProfile.Value + " shade=" + _options.SoftShade.Value + " shade_y=" + _options.ShadeOffsetY.Value + " names=" + _options.ShowNames.Value + " quest_icon=" + _options.QuestIconSize.Value + " quest_shadow=" + _options.QuestIconShadow.Value + " scale_pct=" + _options.ScalePercent.Value + " match_planner=" + _options.MatchPlanner.Value); }
         private void Fail(Exception ex)
         {
             if (_failed) return; _failed = true;
-            try { if (_settings != null) _settings.Close(false); } catch (Exception close) { Logger.LogError("TR_INPUT_RESTORE_FAILED " + close); }
             if (_view != null) _view.SetVisible(false);
             Logger.LogError("TR_DISABLED action=disabled-for-session vanilla=preserved " + ex);
         }
-        private void OnDisable()
-        {
-            try { if (_settings != null) _settings.Close(false); }
-            catch (Exception ex) { Logger.LogError("TR_SETTINGS_CANCEL_FAILED " + ex); }
-            finally { if (_view != null) _view.SetVisible(false); }
-        }
+        private void OnDisable() { if (_view != null) _view.SetVisible(false); }
         private void OnDestroy()
         {
-            try { if (_settings != null) _settings.Close(false); }
-            catch (Exception ex) { Logger.LogError("TR_SETTINGS_CANCEL_FAILED " + ex); }
-            finally
-            {
-                if (_view != null) _view.Destroy();
-                if (_harmony != null) _harmony.UnpatchSelf(); if (Instance == this) Instance = null;
-            }
+            if (_view != null) _view.Destroy();
+            if (_harmony != null) _harmony.UnpatchSelf();
+            if (Instance == this) Instance = null;
         }
     }
     [HarmonyPatch(typeof(KnownNPC), "SetQuestState")]

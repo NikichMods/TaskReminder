@@ -1,15 +1,13 @@
 # Task Reminder
 
-A small Graveyard Keeper mod in development that keeps known weekday-NPC tasks visible below the calendar on the left of the screen.
+A lightweight Graveyard Keeper mod that keeps known tasks visible below the calendar on the left of the screen: today's weekday NPC first, tomorrow's below. Preparation tasks remain visible even when their items are missing.
 
-The display lists today's NPC tasks first and tomorrow's below, including preparation tasks whose items are still missing. It uses the native task text and does not change progression or saves.
+**Status: prerelease candidate 0.1.4, under testing.** The appearance has been selected in game; this is not yet an accepted stable release.
 
-**Status:** visual test candidate0.1.1 prepared after the first0.1.0 return; in-game acceptance pending. No accepted stable release yet.
+The compact view uses native localized quest text and markers, Today/Tomorrow captions, thin dividers and soft shading under individual text lines. NPC names are hidden in the selected appearance. There is no whole-block background, settings window or mod hotkey: F2 is free for the game and other mods.
 
-F2 opens live appearance settings: position, width, two native font templates, text size, line/task/section spacing, shadow or outline and opacity. Close with F2, Esc or the panel button to save settings to the plugin's BepInEx configuration. The settings panel uses the mouse; it blocks gameplay input while open. Native game time is not changed. Task text follows the game language; this candidate's settings are Russian, with Russian/English section headings.
+Target/test environment: Graveyard Keeper 1.407 on Windows with BepInEx 5. Install the supplied candidate as `BepInEx/plugins/TaskReminder.dll` with the game closed, then load a save. The mod does not change quests, inventory, schedules, time or saves. Building Planner and Day Wheel Quest Markers are not dependencies.
 
-Day-caption text has its own size/visibility setting; horizontal lines are independently switchable and adjustable. Hiding both removes that header row. Native weekday icons appear beside NPC names. Icons remain free of text effects. Optional narrow soft shading behind individual printed text lines and a planner-style text profile allow readability comparisons without adding a whole-block backing.
+Task wording follows the game language; authored Today/Tomorrow/empty-state labels are Russian in Russian and English otherwise. Only already visible journal tasks of the six weekday NPCs are included. Very long lists may extend below the screen; broad language/mod-combination coverage is still under testing.
 
-The development target is Graveyard Keeper 1.407 on Windows with BepInEx 5. A clean compile is not installed-runtime acceptance; the first visual/input/restart pass is pending.
-
-See [product requirements](docs/PRODUCT_REQUIREMENTS.md) and [design / current next step](docs/DESIGN.md). Original software and supporting documentation are covered by [MPL-2.0](LICENSE); see [licensing scope](LICENSING.md).
+See [prerelease status](docs/PRERELEASE.md), [development and testing](docs/DEVELOPMENT.md) and [exact candidate evidence](docs/TEST_LOG.md). Original software and supporting documentation use [MPL-2.0](LICENSE); see [licensing](LICENSING.md).

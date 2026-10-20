@@ -33,7 +33,7 @@ if ([Diagnostics.FileVersionInfo]::GetVersionInfo($dll).FileVersion -ne ($versio
 $test = Join-Path $out 'TaskReminder.Tests.exe'
 & $dotnet $compiler @baseArgs /target:exe ('/out:'+$test) ('/reference:'+$dll) (Join-Path $repo 'tests/PolicyTests.cs')
 if ($LASTEXITCODE -ne 0) { throw 'Test compile failed' }
-& $test $managed $core $dll
+& $test $managed $core $dll (Join-Path $repo 'tests/FinalAppearance.cfg')
 if ($LASTEXITCODE -ne 0) { throw 'Policy tests failed' }
 if ($CheckOnly) { Write-Output 'Development compile/version/actual-assembly policy checks passed; not a handoff artifact'; return }
 $manifest = [ordered]@{version=$version;source=$source;compiler='SDK6.0.406 Roslyn';artifact=(Split-Path $dll -Leaf);sha256=(Get-FileHash -LiteralPath $dll -Algorithm SHA256).Hash.ToLowerInvariant();bytes=(Get-Item -LiteralPath $dll).Length;checks='Release compile, assembly/file version, actual-assembly policy tests';references=@($refs | ForEach-Object { [ordered]@{name=(Split-Path $_ -Leaf);sha256=(Get-FileHash -LiteralPath $_ -Algorithm SHA256).Hash.ToLowerInvariant()} })}

@@ -1,3 +1,5 @@
+> Historical candidate gates. The current final-appearance/no-editor prerelease decision is owned by [PRERELEASE.md](PRERELEASE.md); earlier F2 tuning requirements below are superseded for the player candidate.
+
 # 0.1.1 visual refinement gate
 
 User return on 2026-10-20: 0.1.0 renders and the user exercised/saved F2 font/effect/placement settings. Native log has TR_READY and TR_SETTINGS, with exact installed bytes matching 0.1.0. Screenshot shows Snake tasks and next-day Inquisitor empty section. This is bounded loading/render/settings-write evidence, not full restart/input/lifecycle acceptance or stable promotion.

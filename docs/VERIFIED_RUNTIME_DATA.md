@@ -46,13 +46,13 @@ See [TASK_DATA_RESEARCH.md](TASK_DATA_RESEARCH.md) for exact input hashes, metho
 
 Status: static host-data findings, not new installed-runtime acceptance. Private helper/output is ignored. Future shared promotion is subject to the shared repository's own workflow; this bounded project report does not silently change another mod's accepted policy.
 
-## Still unverified / unselected here
+## Current project evidence and remaining limits
 
-- Product eligibility and whether tasks should be grouped by journal owner or actionable interaction/next NPC.
+- Product eligibility is settled: explicit Visible journal tasks grouped by weekday owner, including missing-item preparation, today and tomorrow.
 - Full authored multi-NPC/non-weekly/DLC route coverage, physical NPC availability at each hour and any dynamic counters/readiness requirement.
-- Exact new-overlay refresh and current-save/language readiness boundaries.
-- HUD insertion, font/scale, overlap, alpha/menu behavior and reconstruction for this new text block.
+- Source ownership/readiness/refresh and geometry are established under IMPLEMENTATION_GATE.md and current source; full native task/day/save/language transition coverage remains bounded.
+- Native0.1.3 loading/render/settings are observed; the user accepts the final tuned appearance. This does not prove all menu/cutscene/reconstruction/overlap cases.
 - Whether any readiness/count/detail computation is wanted, and its native owner if adopted.
 - New-mod behavior on native task transitions, loading/switching saves and the user's mod combination.
 
-The original data investigation did not build/install a mod or perform a game-runtime test. A later user request authorized the native candidate and F2 panel; IMPLEMENTATION_GATE.md records its additional prefab/font/input evidence, DEVELOPMENT.md the local compile checks and TEST_LOG.md the exact build/install/return state. No runtime acceptance is implied by static findings or successful compilation.
+The original data investigation did not build/install a mod or perform a game-runtime test. A later user request authorized the native candidate and F2 panel; IMPLEMENTATION_GATE.md records its additional prefab/font/input evidence, DEVELOPMENT.md the current no-editor build checks and TEST_LOG.md the exact build/install/return state.0.1.4 carries the final view without F2 under PRERELEASE.md; it remains prerelease testing, not stable acceptance.
