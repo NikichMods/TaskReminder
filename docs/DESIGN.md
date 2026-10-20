@@ -10,16 +10,18 @@ Project identity is confirmed: Task Reminder / [NikichMods/TaskReminder](https:/
 
 The user asked for a small text reminder below the calendar. Day Wheel Quest Markers is an existing related mod with accepted interaction-marker semantics. Its research can save work, but it does not answer the same product question. Treat this as a separate proposed mod; merging it into the marker mod or requiring that DLL would be a consequential design decision.
 
-## Proposed design direction
+## Adopted scope and proposed visual design
 
-The native disclosed-task source is now verified statically: KnownNPC task records expose state/identity and GetTaskText supplies localized formatted text; native calendar conversion and metadata identify the six weekly NPCs. Use this evidence when evaluating a journal-based reminder rather than building a second quest database. Product filtering and the new HUD rendering seam are still unselected/unverified. Prefer native HUD/font/language behavior if the actual lifecycle supports it.
+The native disclosed-task source is verified statically. The user adopted all known tasks owned by today's NPC, including missing-item preparation tasks, and next day's NPC tasks below. Exact state-edge handling, appearance and the new HUD rendering seam remain unselected/unverified. Prefer native HUD/font/language behavior if the actual lifecycle supports it.
 
-Useful early visual comparison after product discussion:
+The authorized early mockup compares two presentations of the same adopted content:
 
-- current day only, compact NPC heading and task rows;
-- current day plus a visually quieter next-day section.
+- lightweight text with NPC/day headings and no task-block backing;
+- two visually separated sections with restrained dark backing for busy terrain.
 
-An interactive mockup can compare long text, multiple tasks, an empty day and contrast/density. It is illustrative and must not be described as verified in-game rendering. No UI implementation is authorized by this design note.
+Interactive preview states cover current weekday, ordinary/many/empty task lists, day/night contrast and density. The calendar and world backdrop are schematic; task fixtures illustrate layout, not the user's live save. Preview settings and variant selection are not adopted in-game controls. The mockup is illustrative and must not be described as verified in-game rendering. No mod UI implementation is authorized by this design note.
+
+Preview names: **Лёгкий текст** and **Две секции**. Both show the same adopted today-then-tomorrow content; the latter separates it with restrained backing and changes heading layout. The ordinary and long-list night variants were inspected in a browser, and offline render/Tweak callback checks cover initial content, week wrap, many tasks, empty today and density/width settings. This verifies only the illustrative preview. Its durable private path is recorded in LOCAL_ENVIRONMENT.md; no appearance has yet been accepted by the user.
 
 ## Completed data investigation and its decision value
 
@@ -31,8 +33,8 @@ This makes a small text view plausible if the requested meaning is tasks belongi
 
 ## Open decisions / next actions
 
-1. Discuss eligibility (tasks belonging to today's NPC versus actions available today), strict Visible versus native non-Complete filtering, next-day default and content size. The user explicitly limited the current work to data research; do not start mod implementation.
-2. Present an early mockup when it can inform the adopted scope; then investigate only the remaining native rendering/refresh/readiness boundaries needed by that scope.
+1. Review the early mockup for task width, separation of today/tomorrow, contrast and long-list behavior. Eligibility and inclusion of next day are settled; do not reopen them without new evidence/user direction. Strict Visible versus stored Unknown remains an edge decision.
+2. After adopting visual scope, investigate only the remaining native rendering/refresh/readiness boundaries needed by it. The current authorization is mockup only; do not start mod implementation.
 3. Only after product selection and the DevRules readiness gate, establish the minimal build and implement a first candidate on a development branch. Promote reusable accepted host findings to GraveyardKeeperResearch through its own safe checkout/workflow; do not disturb its unrelated active research branch.
 
 No release number, plugin GUID, build toolchain, hosted runner, dependency graph or test DLL has been selected. Set those from executable needs rather than scaffolding them speculatively.

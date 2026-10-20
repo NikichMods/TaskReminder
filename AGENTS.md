@@ -8,7 +8,7 @@ Follow [NikichMods/DevRules/WORKING_RULES.md](https://github.com/NikichMods/DevR
 - Repository: [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public; created by the user and verified through GitHub metadata and Git.
 - Initial target: Graveyard Keeper 1.407, Windows PC, BepInEx 5, matching the existing NikichMods research baseline. This project's compatibility has not been tested.
 - Phase: documentation and static data research. Native journal/text and six-NPC weekday data paths are mapped; no production code, build, runtime acceptance or release exists.
-- Purpose: reduce the need to reopen the NPC task list by displaying a compact task reminder below the left calendar HUD for the current weekday; next-day information is under consideration.
+- Purpose: reduce the need to reopen the NPC task list by displaying all known tasks of the current weekday's NPC below the left calendar HUD, followed by the next weekday's NPC tasks, including tasks whose items are still missing.
 
 ## Sources of truth
 
@@ -28,7 +28,7 @@ Day Wheel Quest Markers is a related evidence source, not this project's product
 
 ## Product and implementation boundaries
 
-- The requested surface is a small reminder below the left calendar/day wheel. Exact layout and next-day behavior are unselected.
+- The requested surface is a small reminder below the left calendar/day wheel: current day's NPC first, next day's NPC below. The user adopted both sections and all-known-task eligibility on 2026-10-20. Exact visual layout remains under review in an illustrative mockup.
 - Do not silently restrict reminders to immediately hand-in-ready tasks, or expand them to undiscovered tasks/dialogue options.
 - Automatic native-journal sourcing is a proposal to investigate, not a verified implementation.
 - Preserve vanilla task progression, NPC schedules, time, inventory and saves. This bootstrap does not authorize production implementation or gameplay automation.
