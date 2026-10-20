@@ -32,13 +32,27 @@ Current-save player ownership and cinematic HUD alpha have additional shared evi
 
 [Day Wheel Quest Markers' contract](https://github.com/NikichMods/DayWheelQuestMarkers/blob/bc31dc8c3de69184c12efbf2afc037e70f828a70/AGENTS.md) marks currently actionable weekday-NPC interactions and deliberately excludes resource-blocked preparation steps. This is that mod's accepted product policy. It is not a universal definition of task relevance and has not been adopted for this reminder.
 
-## Still unverified here
+## Static task/calendar investigation — 2026-10-20
 
-- Native journal row class/method, text/localization key path and composite formatting.
-- Exact link from displayed task to NPC and semantic weekday; treatment of multi-NPC and non-weekly tasks.
-- Current/next-day API and refresh timing.
+See [TASK_DATA_RESEARCH.md](TASK_DATA_RESEARCH.md) for exact input hashes, method owners and applicability limits. Bounded reflection-only IL and read-only game_data/localization inspection established:
+
+- Saved journal source: GameSave.known_npcs -> npcs -> KnownNPC.tasks; task records hold ID/state, not typed items/deadlines/weekdays.
+- Native card path: NPCsListGUI -> NPCItemGUI -> NPCListQuestText -> TaskState.GetTaskText. It skips Complete; it does not explicitly require Visible.
+- Text: GJL.L("task_" + id), native ColorizeTags and base/DLC marker formatting. This method supplies authored wording, not live inventory counters.
+- Native HUDTasksGUI belongs to RelationGUI/relation_additional, with mutating creation/encounter and animation behavior; it is not a passive calendar data API.
+- GameSave.day_of_week = day % 6. Native Flow_GetDayOfWeek converts it to sin = ((12 - weekday) % 6) + 1 and explicitly names the six associated NPCs. The order is Pride -> Lust -> Gluttony -> Envy -> Wrath -> Sloth -> Pride.
+- Exactly six game_data ObjectDefinition records carry nonempty day_icon; their values corroborate the same mapping and their aliases are empty.
+- Native Complete state can be committed in a flying-marker callback after SetTaskState returns. Refresh design cannot assume the entry method's return is always the final writer.
+
+Status: static host-data findings, not new installed-runtime acceptance. Private helper/output is ignored. Future shared promotion is subject to the shared repository's own workflow; this bounded project report does not silently change another mod's accepted policy.
+
+## Still unverified / unselected here
+
+- Product eligibility and whether tasks should be grouped by journal owner or actionable interaction/next NPC.
+- Full authored multi-NPC/non-weekly/DLC route coverage, physical NPC availability at each hour and any dynamic counters/readiness requirement.
+- Exact new-overlay refresh and current-save/language readiness boundaries.
 - HUD insertion, font/scale, overlap, alpha/menu behavior and reconstruction for this new text block.
 - Whether any readiness/count/detail computation is wanted, and its native owner if adopted.
 - New-mod behavior on native task transitions, loading/switching saves and the user's mod combination.
 
-No new static host inspection, game probe, build, installation or runtime verification has been performed for Task Reminder. The screenshot is user-interface context, not proof of internal mechanics.
+No game probe, mod build, installation or new runtime verification has been performed for Task Reminder. The screenshot is user-interface context; direct static inspection supplies the new internal data findings.

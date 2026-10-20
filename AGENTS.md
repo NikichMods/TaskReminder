@@ -7,7 +7,7 @@ Follow [NikichMods/DevRules/WORKING_RULES.md](https://github.com/NikichMods/DevR
 - Project: Task Reminder. Technical identity: TaskReminder. The user confirmed the name on 2026-10-20.
 - Repository: [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public; created by the user and verified through GitHub metadata and Git.
 - Initial target: Graveyard Keeper 1.407, Windows PC, BepInEx 5, matching the existing NikichMods research baseline. This project's compatibility has not been tested.
-- Phase: documentation/bootstrap only. No production code, build, runtime acceptance or release exists.
+- Phase: documentation and static data research. Native journal/text and six-NPC weekday data paths are mapped; no production code, build, runtime acceptance or release exists.
 - Purpose: reduce the need to reopen the NPC task list by displaying a compact task reminder below the left calendar HUD for the current weekday; next-day information is under consideration.
 
 ## Sources of truth
@@ -15,6 +15,7 @@ Follow [NikichMods/DevRules/WORKING_RULES.md](https://github.com/NikichMods/DevR
 - docs/PRODUCT_REQUIREMENTS.md: requested outcome, tentative scope and unresolved product choices.
 - docs/DESIGN.md: recovery entry point, proposed direction, research questions and next action.
 - docs/VERIFIED_RUNTIME_DATA.md: prior evidence, provenance and applicability limits.
+- docs/TASK_DATA_RESEARCH.md: static native journal storage/rendering, weekday mapping and their limits.
 - LOCAL_ENVIRONMENT.md: ignored machine-specific paths and tooling/access observations.
 
 Recover actual Git/files before changes. Do not infer acceptance from tentative discussion, compiled code or another mod's accepted behavior.

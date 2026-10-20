@@ -12,6 +12,8 @@ The image establishes the kind of information the user means: NPC-associated tas
 
 Inspect NikichMods rules, related projects and shared research, then prepare the infrastructure for a separate mod using established conventions. The immediate scope is bootstrap and research preparation; production implementation is a later step.
 
+Follow-up on 2026-10-20: investigate how the game stores/displays tasks and relates them to weekdays, explicitly without implementing the mod. Static findings are recorded in TASK_DATA_RESEARCH.md; they inform the choices below without adopting a filter or UI design.
+
 ## Requested foundation
 
 - A compact task-information display below the left calendar HUD.
