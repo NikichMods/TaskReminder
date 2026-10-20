@@ -53,3 +53,7 @@ No changes to native progression, NPC schedules, inventory, time or saves are re
 ## Future acceptance envelope
 
 Once eligibility and display choices are adopted, exercise representative real paths: task creation/completion, weekday transition including week wrap, save/load and switching saves, hidden/restored HUD, long/multiple objectives and coexistence with the user's calendar markers. Compilation or an illustrative mockup alone cannot establish these runtime properties.
+
+## Adopted settings refinement (0.1.2)
+
+Soft per-line backing can move vertically without moving text. Every slider has an individual reset to the shipped0.1.1 defaults; caption default is fixed at fresh-install16, independent of tuned body size. Current saved values are preserved. All changes preview live: explicit Save/F2 persists; Cancel/Esc restores the entire opening state, including toggles and font. Forced panel closure also discards edits.

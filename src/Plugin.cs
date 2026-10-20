@@ -11,7 +11,7 @@ namespace TaskReminder
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Guid = "nikich.gyk.taskreminder";
-        public const string Version = "0.1.1";
+        public const string Version = "0.1.2";
         internal static Plugin Instance;
         private readonly FieldInfo _inventory = AccessTools.Field(typeof(GameSave), "_inventory");
         private readonly FieldInfo _playerData = AccessTools.Field(typeof(WorldGameObject), "_data");
@@ -54,9 +54,9 @@ namespace TaskReminder
             if (_failed) return;
             try
             {
-                if (_settings.IsOpen && !CanOpenPanel()) _settings.Close();
-                if (Input.GetKeyDown(KeyCode.F2)) { if (_settings.IsOpen) _settings.Close(); else if (CanOpenPanel()) _settings.Open(); }
-                if (_settings.IsOpen && Input.GetKeyDown(KeyCode.Escape)) _settings.Close();
+                if (_settings.IsOpen && !CanOpenPanel()) _settings.Close(false);
+                if (Input.GetKeyDown(KeyCode.F2)) { if (_settings.IsOpen) _settings.Close(true); else if (CanOpenPanel()) _settings.Open(); }
+                if (_settings.IsOpen && Input.GetKeyDown(KeyCode.Escape)) _settings.Close(false);
                 if (Time.unscaledTime < _nextCheck) return;
                 _nextCheck = Time.unscaledTime + .25f;
                 if (!Ready()) { if (_view != null) _view.SetVisible(false); _save = null; return; }
@@ -85,24 +85,24 @@ namespace TaskReminder
         private void OnGUI() { if (!_failed && _settings != null) try { _settings.Draw(); } catch (Exception ex) { Fail(ex); } }
         internal void Changed() { _dirty = true; }
         internal int DisplayHeight { get { return _view == null ? 0 : _view.Height; } }
-        internal void LogSettings() { Logger.LogInfo("TR_SETTINGS x=" + _options.X.Value + " y=" + _options.Y.Value + " width=" + _options.Width.Value + " font=" + _options.Font.Value + " size=" + _options.FontSize.Value + " effect=" + _options.Effect.Value + " caption=" + _options.ShowCaptions.Value + " divider=" + _options.ShowDividers.Value + " profile=" + _options.PlannerProfile.Value + " shade=" + _options.SoftShade.Value); }
+        internal void LogSettings() { Logger.LogInfo("TR_SETTINGS x=" + _options.X.Value + " y=" + _options.Y.Value + " width=" + _options.Width.Value + " font=" + _options.Font.Value + " size=" + _options.FontSize.Value + " effect=" + _options.Effect.Value + " caption=" + _options.ShowCaptions.Value + " divider=" + _options.ShowDividers.Value + " profile=" + _options.PlannerProfile.Value + " shade=" + _options.SoftShade.Value + " shade_y=" + _options.ShadeOffsetY.Value); }
         private void Fail(Exception ex)
         {
             if (_failed) return; _failed = true;
-            try { if (_settings != null) _settings.Close(); } catch (Exception close) { Logger.LogError("TR_INPUT_RESTORE_FAILED " + close); }
+            try { if (_settings != null) _settings.Close(false); } catch (Exception close) { Logger.LogError("TR_INPUT_RESTORE_FAILED " + close); }
             if (_view != null) _view.SetVisible(false);
             Logger.LogError("TR_DISABLED action=disabled-for-session vanilla=preserved " + ex);
         }
         private void OnDisable()
         {
-            try { if (_settings != null) _settings.Close(); }
-            catch (Exception ex) { Logger.LogError("TR_SETTINGS_SAVE_FAILED input=restored " + ex); }
+            try { if (_settings != null) _settings.Close(false); }
+            catch (Exception ex) { Logger.LogError("TR_SETTINGS_CANCEL_FAILED " + ex); }
             finally { if (_view != null) _view.SetVisible(false); }
         }
         private void OnDestroy()
         {
-            try { if (_settings != null) _settings.Close(); }
-            catch (Exception ex) { Logger.LogError("TR_SETTINGS_SAVE_FAILED input=restored " + ex); }
+            try { if (_settings != null) _settings.Close(false); }
+            catch (Exception ex) { Logger.LogError("TR_SETTINGS_CANCEL_FAILED " + ex); }
             finally
             {
                 if (_view != null) _view.Destroy();

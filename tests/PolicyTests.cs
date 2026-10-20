@@ -12,7 +12,7 @@ internal static class PolicyTests
     {
         _paths = args;
         AppDomain.CurrentDomain.AssemblyResolve += Resolve;
-        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, old-config migration/persistence, input signatures"); return 0; }
+        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, old-config migration/persistence, settings rollback/isolated defaults, input signatures"); return 0; }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }
     }
     private static Assembly Resolve(object sender, ResolveEventArgs args)
@@ -56,10 +56,39 @@ internal static class PolicyTests
         var config = new BepInEx.Configuration.ConfigFile(configPath, false);
         var options = new Options(config);
         Require(options.X.Value == 12 && options.Width.Value == 154 && options.FontSize.Value == 13 && options.LineSpacing.Value == -4 && options.Font.Value == NativeFont.Items, "Existing config values changed");
-        Require(options.EffectSize.Value == 1f && options.CaptionSize.Value == 13, "Effect/caption migration mismatch");
+        Require(options.EffectSize.Value == 1f && options.CaptionSize.Value == 16, "Effect/caption migration mismatch");
         options.ShowCaptions.Value = false; options.ShowDividers.Value = true; options.Save();
         var restored = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
         Require(!restored.ShowCaptions.Value && restored.ShowDividers.Value && restored.Width.Value == 154, "Independent header settings did not persist");
+        string savedBytes = File.ReadAllText(configPath);
+        var snapshot = options.Capture();
+        foreach (var item in snapshot)
+        {
+            object value = item.Value;
+            if (value is int) item.Key.BoxedValue = (int)value + 1;
+            else if (value is float) item.Key.BoxedValue = (float)value - .1f;
+            else if (value is bool) item.Key.BoxedValue = !(bool)value;
+        }
+        options.Font.Value = NativeFont.Journal; options.Effect.Value = TextEffect.Outline;
+        options.Restore(snapshot);
+        foreach (var item in snapshot) Require(Equals(item.Key.BoxedValue, item.Value), "Cancel failed for " + item.Key.Definition.Key);
+        Require(File.ReadAllText(configPath) == savedBytes, "Preview/cancel wrote disk");
+        options.CaptionSize.Value = 21; options.ShadeOffsetY.Value = -7; options.Save();
+        var reopened = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
+        Require(reopened.CaptionSize.Value == 21 && reopened.ShadeOffsetY.Value == -7, "Saved caption/offset lost");
+        var baseline = reopened.Capture();
+        foreach (var item in baseline)
+        {
+            if (!(item.Value is int) && !(item.Value is float)) continue;
+            Options.Reset(item.Key);
+            Require(Equals(item.Key.BoxedValue, item.Key.DefaultValue), "Slider reset mismatch");
+            foreach (var other in baseline)
+                if (!ReferenceEquals(other.Key, item.Key)) Require(Equals(other.Key.BoxedValue, other.Value), "Reset affected another entry");
+            reopened.Restore(baseline);
+        }
+        Require((int)reopened.CaptionSize.DefaultValue == 16 && (int)reopened.ShadeOffsetY.DefaultValue == 0, "Unstable defaults");
+        var secondSession = reopened.Capture(); reopened.Width.Value = 300; reopened.Restore(secondSession);
+        Require(reopened.Width.Value == 154 && reopened.CaptionSize.Value == 21, "Reopened cancel baseline mismatch");
         foreach (string name in new[] { "GetKey", "GetKeyDown", "AnyClick", "AnyKeyDown" })
         {
             bool found = false;

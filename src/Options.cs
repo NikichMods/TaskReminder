@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MPL-2.0
 using BepInEx.Configuration;
+using System.Collections.Generic;
 
 namespace TaskReminder
 {
@@ -8,7 +9,7 @@ namespace TaskReminder
     internal sealed class Options
     {
         internal readonly ConfigEntry<int> X, Y, Width, FontSize, HeadingSize, LineSpacing, TaskGap, SectionGap, CalendarGap;
-        internal readonly ConfigEntry<int> CaptionSize, DividerLength, DividerThickness, IconSize, ShadePaddingX, ShadePaddingY, ShadeFeather;
+        internal readonly ConfigEntry<int> CaptionSize, DividerLength, DividerThickness, IconSize, ShadePaddingX, ShadePaddingY, ShadeFeather, ShadeOffsetY;
         internal readonly ConfigEntry<bool> ShowCaptions, ShowDividers, PlannerProfile, SoftShade;
         internal readonly ConfigEntry<float> EffectSize, DividerAlpha, ShadeAlpha;
         internal readonly ConfigEntry<float> TomorrowAlpha, TextAlpha, EffectAlpha;
@@ -28,13 +29,14 @@ namespace TaskReminder
             SectionGap = Integer("SectionGap", 20, 4, 100, "Gap between today and tomorrow.");
             CalendarGap = Integer("CalendarGap", 14, 0, 100, "Gap below the visible calendar.");
             EffectSize = Real("EffectSize", 1f, .25f, 4f);
-            CaptionSize = Integer("CaptionSize", FontSize.Value, 8, 36, "Independent Today/Tomorrow caption size.");
+            CaptionSize = Integer("CaptionSize", 16, 8, 36, "Independent Today/Tomorrow caption size.");
             DividerLength = Integer("DividerLength", 60, 8, 300, "Divider length; clamped to available row width.");
             DividerThickness = Integer("DividerThickness", 1, 1, 3, "Divider thickness.");
             IconSize = Integer("DayIconSize", 16, 8, 36, "Native weekday icon size beside NPC names.");
             ShadePaddingX = Integer("ShadePaddingX", 3, 0, 12, "Soft per-line backing horizontal padding.");
             ShadePaddingY = Integer("ShadePaddingY", 1, 0, 8, "Soft per-line backing vertical padding.");
             ShadeFeather = Integer("ShadeFeather", 4, 1, 12, "Soft per-line backing edge feather.");
+            ShadeOffsetY = Integer("ShadeOffsetY", 0, -24, 24, "Soft backing vertical offset; positive moves up without moving text.");
             ShowCaptions = config.Bind("Appearance", "ShowDayCaptions", true, "Show Today/Tomorrow text independently of dividers.");
             ShowDividers = config.Bind("Appearance", "ShowDayDividers", true, "Keep dividers when captions are hidden; both off removes the row.");
             PlannerProfile = config.Bind("Appearance", "PlannerTextProfile", true, "Rasterize text at24 then scale, matching the planner rendering approach.");
@@ -52,9 +54,20 @@ namespace TaskReminder
         private ConfigEntry<float> Real(string key, float value, float min, float max)
         { return _config.Bind("Appearance", key, value, new ConfigDescription(key, new AcceptableValueRange<float>(min, max))); }
         internal void Save() { _config.Save(); }
+        internal Dictionary<ConfigEntryBase, object> Capture()
+        {
+            var snapshot = new Dictionary<ConfigEntryBase, object>();
+            foreach (var entry in _config) snapshot.Add(entry.Value, entry.Value.BoxedValue);
+            return snapshot;
+        }
+        internal void Restore(Dictionary<ConfigEntryBase, object> snapshot)
+        {
+            foreach (var entry in snapshot) entry.Key.BoxedValue = entry.Value;
+        }
+        internal static void Reset(ConfigEntryBase entry) { entry.BoxedValue = entry.DefaultValue; }
         internal void Reset()
         {
-            foreach (var entry in _config) entry.Value.BoxedValue = entry.Value.DefaultValue;
+            foreach (var entry in _config) Reset(entry.Value);
         }
     }
 }

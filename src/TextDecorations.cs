@@ -68,7 +68,7 @@ namespace TaskReminder
                 Vector2 size = Measure(lines[i].TrimEnd('\r')) * scale;
                 if (size.x < 1 || size.y < 1) continue;
                 int px = _options.ShadePaddingX.Value, py = _options.ShadePaddingY.Value;
-                Vector3 pos = source.transform.localPosition + new Vector3(-leftPadding, py - i * step * scale, 0);
+                Vector3 pos = source.transform.localPosition + new Vector3(-leftPadding, py + _options.ShadeOffsetY.Value - i * step * scale, 0);
                 AddBand(pos, Mathf.CeilToInt(size.x) + px + leftPadding, Mathf.CeilToInt(size.y) + py * 2, alpha);
             }
         }

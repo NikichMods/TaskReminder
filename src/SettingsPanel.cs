@@ -14,6 +14,7 @@ namespace TaskReminder
         private readonly Options _options;
         private BaseCharacterComponent _character;
         private UICamera _events;
+        private Dictionary<ConfigEntryBase, object> _snapshot;
         private bool _control, _mouse, _touch, _keyboard, _controller;
         private Rect _window;
         private bool _placed;
@@ -32,29 +33,35 @@ namespace TaskReminder
             if (_events == null) { _character = null; return; }
             _control = _character.control_enabled;
             _mouse = _events.useMouse; _touch = _events.useTouch; _keyboard = _events.useKeyboard; _controller = _events.useController;
+            _snapshot = _options.Capture();
             IsOpen = true;
             try
             {
                 _character.control_enabled = false;
                 _events.useMouse = _events.useTouch = _events.useKeyboard = _events.useController = false;
             }
-            catch { Close(); throw; }
+            catch { Close(false); throw; }
         }
-        internal void Close()
+        internal void Close(bool save)
         {
             if (!IsOpen) return;
             IsOpen = false;
             _suppressUntilFrame = Time.frameCount + 1;
+            var snapshot = _snapshot; _snapshot = null;
             try
             {
                 if (_events != null) { _events.useMouse = _mouse; _events.useTouch = _touch; _events.useKeyboard = _keyboard; _events.useController = _controller; }
             }
             finally
             {
-                if (_character != null) _character.control_enabled = _control;
-                _events = null; _character = null;
+                try { if (_character != null) _character.control_enabled = _control; }
+                finally
+                {
+                    _events = null; _character = null;
+                    if (!save) { _options.Restore(snapshot); _plugin.Changed(); }
+                }
             }
-            _options.Save(); _plugin.LogSettings();
+            if (save) { _options.Save(); _plugin.LogSettings(); }
         }
         internal void Draw()
         {
@@ -68,7 +75,7 @@ namespace TaskReminder
         }
         private void Window(int id)
         {
-            GUILayout.Label("Изменения видны сразу; сохраняются при закрытии.");
+            GUILayout.Label("Предпросмотр сразу. F2 — сохранить; Esc — отменить.");
             _scroll = GUILayout.BeginScrollView(_scroll);
             bool previous = GUI.changed; GUI.changed = false;
             GUILayout.Label("Положение — единицы HUD, с учётом масштаба игры");
@@ -95,13 +102,17 @@ namespace TaskReminder
             GUILayout.Space(6); GUILayout.Label("Читаемость");
             _options.Effect.Value = (TextEffect)GUILayout.SelectionGrid((int)_options.Effect.Value, new[] { "Без эффекта", "Тень", "Обводка" }, 3);
             GUILayout.Label("Смещение тени / обводки: " + _options.EffectSize.Value.ToString("0.00"));
+            GUILayout.BeginHorizontal();
             _options.EffectSize.Value = Mathf.Round(GUILayout.HorizontalSlider(_options.EffectSize.Value, .25f, 4f) * 20f) / 20f;
+            ResetButton(_options.EffectSize);
+            GUILayout.EndHorizontal();
             Percent("Сила тени / обводки", _options.EffectAlpha, 0, 1);
             Percent("Яркость текста", _options.TextAlpha, .4f, 1);
             Percent("Яркость завтрашнего блока", _options.TomorrowAlpha, .3f, 1);
             GUILayout.Space(6); GUILayout.Label("Мягкая тень под строками — без значков");
             _options.SoftShade.Value = GUILayout.Toggle(_options.SoftShade.Value, "Включить мягкую тень под каждой строкой");
             Percent("Сила мягкой тени", _options.ShadeAlpha, 0, .65f);
+            Slider("Положение тени: вверх ↑", _options.ShadeOffsetY, -24, 24);
             Slider("Запас по ширине", _options.ShadePaddingX, 0, 12);
             Slider("Запас по высоте", _options.ShadePaddingY, 0, 8);
             Slider("Мягкость краёв", _options.ShadeFeather, 1, 12);
@@ -110,7 +121,8 @@ namespace TaskReminder
             bool changed = GUI.changed; GUI.changed |= previous;
             if (changed) _plugin.Changed();
             GUILayout.EndScrollView();
-            if (GUILayout.Button("Сохранить и закрыть (F2)")) Close();
+            if (GUILayout.Button("Сохранить и закрыть (F2)")) Close(true);
+            if (GUILayout.Button("Отменить и закрыть (Esc)")) Close(false);
             GUI.DragWindow(new Rect(0, 0, _window.width, 22));
         }
         private static void Slider(string name, ConfigEntry<int> entry, int min, int max)
@@ -120,12 +132,20 @@ namespace TaskReminder
             if (GUILayout.Button("−", GUILayout.Width(28))) entry.Value = Math.Max(min, entry.Value - 1);
             entry.Value = Mathf.RoundToInt(GUILayout.HorizontalSlider(entry.Value, min, max));
             if (GUILayout.Button("+", GUILayout.Width(28))) entry.Value = Math.Min(max, entry.Value + 1);
+            ResetButton(entry);
             GUILayout.EndHorizontal();
+        }
+        private static void ResetButton(ConfigEntryBase entry)
+        {
+            if (GUILayout.Button("Сброс", GUILayout.Width(58))) { Options.Reset(entry); GUI.changed = true; }
         }
         private static void Percent(string name, ConfigEntry<float> entry, float min, float max)
         {
             GUILayout.Label(name + ": " + Mathf.RoundToInt(entry.Value * 100) + "%");
+            GUILayout.BeginHorizontal();
             entry.Value = Mathf.Round(GUILayout.HorizontalSlider(entry.Value, min, max) * 100) / 100f;
+            ResetButton(entry);
+            GUILayout.EndHorizontal();
         }
     }
     // Same bounded input-family guard as the accepted planner calibration pattern.
