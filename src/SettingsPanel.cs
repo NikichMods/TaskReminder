@@ -76,8 +76,17 @@ namespace TaskReminder
             Slider("Y: вверх ↑", _options.Y, -600, 600);
             Slider("Отступ под календарём", _options.CalendarGap, 0, 100);
             Slider("Ширина блока", _options.Width, 120, 600);
+            GUILayout.Space(6); GUILayout.Label("Строки «Сегодня / Завтра»");
+            _options.ShowCaptions.Value = GUILayout.Toggle(_options.ShowCaptions.Value, "Показывать надписи Сегодня / Завтра");
+            Slider("Размер этих надписей", _options.CaptionSize, 8, 36);
+            _options.ShowDividers.Value = GUILayout.Toggle(_options.ShowDividers.Value, "Показывать линии независимо от надписей");
+            Slider("Длина линий", _options.DividerLength, 8, 300);
+            Slider("Толщина линий", _options.DividerThickness, 1, 3);
+            Percent("Яркость линий", _options.DividerAlpha, 0, 1);
+            Slider("Размер значков дней", _options.IconSize, 8, 36);
             GUILayout.Space(6); GUILayout.Label("Шрифт");
             _options.Font.Value = (NativeFont)GUILayout.SelectionGrid((int)_options.Font.Value, new[] { "Журнал / мелкий", "Предметы / крупный" }, 2);
+            _options.PlannerProfile.Value = GUILayout.Toggle(_options.PlannerProfile.Value, "Отрисовка текста как у планировщика");
             Slider("Размер задач", _options.FontSize, 8, 36);
             Slider("Размер имён", _options.HeadingSize, 8, 40);
             Slider("Межстрочный отступ", _options.LineSpacing, -6, 16);
@@ -85,10 +94,17 @@ namespace TaskReminder
             Slider("Между сегодня / завтра", _options.SectionGap, 4, 100);
             GUILayout.Space(6); GUILayout.Label("Читаемость");
             _options.Effect.Value = (TextEffect)GUILayout.SelectionGrid((int)_options.Effect.Value, new[] { "Без эффекта", "Тень", "Обводка" }, 3);
-            Slider("Размер эффекта", _options.EffectSize, 1, 4);
+            GUILayout.Label("Смещение тени / обводки: " + _options.EffectSize.Value.ToString("0.00"));
+            _options.EffectSize.Value = Mathf.Round(GUILayout.HorizontalSlider(_options.EffectSize.Value, .25f, 4f) * 20f) / 20f;
             Percent("Сила тени / обводки", _options.EffectAlpha, 0, 1);
             Percent("Яркость текста", _options.TextAlpha, .4f, 1);
             Percent("Яркость завтрашнего блока", _options.TomorrowAlpha, .3f, 1);
+            GUILayout.Space(6); GUILayout.Label("Мягкая тень под строками — без значков");
+            _options.SoftShade.Value = GUILayout.Toggle(_options.SoftShade.Value, "Включить мягкую тень под каждой строкой");
+            Percent("Сила мягкой тени", _options.ShadeAlpha, 0, .65f);
+            Slider("Запас по ширине", _options.ShadePaddingX, 0, 12);
+            Slider("Запас по высоте", _options.ShadePaddingY, 0, 8);
+            Slider("Мягкость краёв", _options.ShadeFeather, 1, 12);
             GUILayout.Label("Высота текста: " + _plugin.DisplayHeight + " ед. HUD.\nДлинные задачи переносятся целиком, без сокращения.");
             if (GUILayout.Button("Вернуть исходные настройки")) { _options.Reset(); GUI.changed = true; }
             bool changed = GUI.changed; GUI.changed |= previous;

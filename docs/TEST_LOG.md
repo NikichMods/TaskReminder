@@ -1,8 +1,14 @@
 # Candidate test log
 
+## 0.1.1 — captions, native day icons and lightweight readability
+
+Status: source preparation and development checks passed; exact artifact/install identity to be recorded after the clean build. Native visual acceptance pending.
+
+Scope/gate: VISUAL_REFINEMENT.md. Separate caption size/visibility and independent divider controls with height collapse; native weekday symbols beside NPC names; no glyph effects/soft bands on icons; optional planner-style raster profile, fractional effect offset and narrow measured per-line soft shading. Preserve the player's existing position/width/font/spacing settings. Policy/heading-combination and actual BepInEx old-config migration/save/reload checks pass. No claim that the new text looks clearer until the user compares it in game.
+
 ## 0.1.0 — first native candidate
 
-Status: exact candidate built and installed with the host closed on 2026-10-20. Runtime return/acceptance pending. No accepted stable build exists.
+Status: historical candidate, initial installed return observed; not accepted as stable. User requested visual refinements for the next candidate.
 
 Scope: accepted lightweight current/next-day native-journal reminders and persistent F2 appearance settings. IMPLEMENTATION_GATE.md owns the per-property readiness checkpoint; DEVELOPMENT.md owns checks and the requested user return.
 
@@ -14,4 +20,4 @@ Installed canonical file: `TaskReminder.dll`; installed bytes/hash verified iden
 
 Requested first return: start/load the game, compare current/next NPC tasks with the journal, tune placement/width/fonts/effects using F2, close and verify controls recover, then restart/reload to verify saved settings. Read the accessible native BepInEx log independently after the user reports the result. Natural completion/day/menu transitions provide follow-up evidence; do not manufacture progression or claim unobserved coverage.
 
-No `TR_READY`, actual rendering, input interaction, settings persistence, language-switch or scene-reload acceptance has yet been observed for these bytes. A later documentation-only commit does not change the artifact's source identity; do not rebuild/replace this numbered DLL to match a bookkeeping HEAD.
+Return evidence: native log SHA-256 `b4dfa5cf3f9ad7784a4d240c9fa61872c974de45fb3ee23e4df551ffe6429d84` contains TR_READY with tiny_font/small_font and saved TR_SETTINGS returns (Items12/Outline, then Items13/Shadow). Preserved config SHA-256 `995cacabe88d297f81c8fd21b3d094f605e123d515882b662e42d39c77dabf09`. Screenshot shows rendered Snake objectives and tomorrow's empty Inquisitor block. Actual settings file records X12/Y0/width154/Items13/heading14/spacing-4/Shadow1 at.7. The user reports inadequate caption controls and text legibility; glyph effects on quest symbols are confirmed by the owned-label source path. No isolated outline-geometry bug is established by the screenshot, which uses Shadow. Full input-restoration/restart/language/scene/day-change acceptance is not claimed. Private snapshots are in LOCAL_ENVIRONMENT.md. Keep exact0.1.0 bytes immutable.

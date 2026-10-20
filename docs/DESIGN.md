@@ -2,7 +2,7 @@
 
 ## Recovery entry point
 
-Phase: first native candidate 0.1.0 on codex/feature/native-reminder. The user accepted **Лёгкий текст** and authorized in-game implementation plus persistent F2 tuning. Source and development compile/policy checks exist; exact build/install/return identity is owned by TEST_LOG.md. Runtime acceptance and stable promotion remain pending. Start DEVELOPMENT.md for the current return procedure, then the owning requirements/evidence as needed.
+Phase: visual refinement candidate0.1.1 on codex/feature/native-reminder after the user's0.1.0 screenshot/settings return. Caption controls/independent lines/native day symbols/marker effect isolation and lightweight readability options are implemented under VISUAL_REFINEMENT.md. Exact build/install/return identity is owned by TEST_LOG.md. Runtime acceptance and stable promotion remain pending. Start DEVELOPMENT.md for the current return procedure, then owning evidence as needed.
 
 Project identity is confirmed: Task Reminder / [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public. The user created the remote; its initial main commit is 08e9edcf69c96712e97f7010bbd3c5536b5bd289, containing the project title and weekday-task description in README.md. Preserve that history. The existing Codex project and checkout are reused. The repository contract, product/design/evidence documents and license form the documentation baseline; no production implementation is implied.
 
@@ -33,8 +33,8 @@ This makes a small text view plausible if the requested meaning is tasks belongi
 
 ## Open decisions / next actions
 
-1. Finish/return the exact 0.1.0 candidate under TEST_LOG.md; evaluate native placement/text/F2 controls and persistence. Compilation is not runtime acceptance.
+1. Return the exact0.1.1 refinement under TEST_LOG.md; compare header visibility/lines and space reclamation, native symbols, effects and readability options in F2. Compilation is not visual acceptance.
 2. Read the accessible installed log after the return; fix concrete defects or preserve accepted tuning values in the next immutable candidate. Eligibility, both day sections and lightweight direction are settled.
 3. Promote reusable accepted host findings to GraveyardKeeperResearch through its own safe checkout/workflow; do not disturb its unrelated active research branch. Stable promotion requires explicit acceptance of the exact tested artifact.
 
-Plugin GUID: nikich.gyk.taskreminder. Version owner: Plugin.Version (0.1.0). build.ps1 owns the clean exact-source SDK6.0.406 Roslyn gate against private installed references and actual-assembly policy checks. No hosted runner/reference provisioning is selected. DEVELOPMENT.md owns build instructions; TEST_LOG.md owns immutable artifact/source identity.
+Plugin GUID: nikich.gyk.taskreminder. Version owner: Plugin.Version (0.1.1).0.1.0 stays frozen. build.ps1 owns the clean exact-source SDK6.0.406 Roslyn gate against private installed references and actual-assembly policy/config-migration checks. No hosted runner/reference provisioning is selected. DEVELOPMENT.md owns build instructions; TEST_LOG.md owns immutable artifact/source identity.

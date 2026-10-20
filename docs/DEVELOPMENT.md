@@ -1,6 +1,6 @@
 # Development recovery
 
-Branch: codex/feature/native-reminder. Candidate: 0.1.0, built and installed, awaiting the user's first runtime return. No stable runtime release/acceptance yet. TEST_LOG.md owns exact source/artifact/install identity. The initial gate is in IMPLEMENTATION_GATE.md; data owners are in TASK_DATA_RESEARCH.md.
+Branch: codex/feature/native-reminder. Current candidate0.1.1 refines the bounded0.1.0 screenshot/F2-settings return. No stable runtime release/acceptance yet. TEST_LOG.md owns exact source/artifact/install identity. Initial gate: IMPLEMENTATION_GATE.md; visual-refinement gate: VISUAL_REFINEMENT.md; data owners: TASK_DATA_RESEARCH.md.
 
 ## Current behavior
 
@@ -17,6 +17,10 @@ The gate compiles Release, verifies assembly/file versions and runs tests using 
 ## F2 settings
 
 Persistent plugin config, saved when closed. Controls: X right/Y up, calendar gap, width, two native template fonts, body/name size, line/task/section gaps, None/Shadow/Outline, effect size/opacity, text opacity and tomorrow opacity. Reset restores plugin defaults. Sliders and single-step +/- controls change position/integers live. The right-side window is draggable and scrollable to fit the screen.
+
+0.1.1 adds independent day-caption size/visibility and divider visibility/length/thickness/opacity. Hiding text keeps enabled lines; both hidden consumes no caption row. Native weekday symbols use the NPC list's own icon template and no effects. Quest markers also have no glyph effect or soft backing. Marker size is bounded to its reserved column.
+
+Readability comparisons in F2: ordinary text versus planner-style raster24/scaling, fractional shadow/outline distance, and soft per-printed-line backing with opacity/X-Y padding/feather. New profile/backing controls start enabled for the requested comparison, can be switched off independently, and preserve previously saved width/font-size/placement values. Backing uses native processed line wraps and measured line widths; left padding beside icons is limited so the effect stays under text. No whole-block rectangle is added. New appearance is not visually accepted until the user's return.
 
 While open, capture/disable player control and the HUD event camera's mouse/touch/keyboard/controller input; guard native LazyInput families, including a closing-frame grace period. Restore captured flags on close/loading/native-window transition/disable/destroy/failure. Do not change native timeScale or saves. Raw Unity-key bindings in unrelated mods are not an exclusive-key contract.
 

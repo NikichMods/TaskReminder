@@ -12,7 +12,7 @@ internal static class PolicyTests
     {
         _paths = args;
         AppDomain.CurrentDomain.AssemblyResolve += Resolve;
-        try { Run(); Console.WriteLine("PASS native-calendar correspondence, week-wrap, visible-only/order/null/missing-NPC/read-only task selection"); return 0; }
+        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, old-config migration/persistence, input signatures"); return 0; }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }
     }
     private static Assembly Resolve(object sender, ResolveEventArgs args)
@@ -47,6 +47,19 @@ internal static class PolicyTests
         Require(ReminderPolicy.VisibleTasks(npc).Count == 1, "Completion not reflected");
         bool rejected = false; try { ReminderPolicy.NpcForDay(-1, 0); } catch (ArgumentOutOfRangeException) { rejected = true; }
         Require(rejected, "Invalid day must be rejected");
+        Require(ReminderPolicy.CaptionRowHeight(false, false, 20, 1) == 0, "Hidden header must release its full height");
+        Require(ReminderPolicy.CaptionRowHeight(false, true, 20, 1) == 5, "Divider-only header must ignore hidden text height");
+        Require(ReminderPolicy.CaptionRowHeight(true, false, 20, 1) == 24, "Text-only header height mismatch");
+        Require(ReminderPolicy.CaptionRowHeight(true, true, 20, 1) == 24, "Combined header height mismatch");
+        string configPath = Path.Combine(Path.GetDirectoryName(_paths[2]), "migration-check.cfg");
+        File.WriteAllText(configPath, "[Appearance]\nOffsetX = 12\nWidth = 154\nFontSize = 13\nHeadingSize = 14\nLineSpacing = -4\nEffectSize = 1\nFont = Items\nEffect = Shadow\n");
+        var config = new BepInEx.Configuration.ConfigFile(configPath, false);
+        var options = new Options(config);
+        Require(options.X.Value == 12 && options.Width.Value == 154 && options.FontSize.Value == 13 && options.LineSpacing.Value == -4 && options.Font.Value == NativeFont.Items, "Existing config values changed");
+        Require(options.EffectSize.Value == 1f && options.CaptionSize.Value == 13, "Effect/caption migration mismatch");
+        options.ShowCaptions.Value = false; options.ShowDividers.Value = true; options.Save();
+        var restored = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
+        Require(!restored.ShowCaptions.Value && restored.ShowDividers.Value && restored.Width.Value == 154, "Independent header settings did not persist");
         foreach (string name in new[] { "GetKey", "GetKeyDown", "AnyClick", "AnyKeyDown" })
         {
             bool found = false;

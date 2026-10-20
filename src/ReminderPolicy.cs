@@ -20,5 +20,7 @@ namespace TaskReminder
                 if (task != null && !string.IsNullOrEmpty(task.id) && task.state == KnownNPC.TaskState.State.Visible) result.Add(task);
             return result;
         }
+        internal static int CaptionRowHeight(bool text, bool line, int textHeight, int lineHeight)
+        { return text || line ? Math.Max(text ? textHeight : 0, line ? lineHeight : 0) + 4 : 0; }
     }
 }

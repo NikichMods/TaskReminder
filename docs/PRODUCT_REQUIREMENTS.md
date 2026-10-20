@@ -18,6 +18,8 @@ Subsequent decision on the same date: show all known tasks of the current day's 
 
 Later on the same date the user accepted **Лёгкий текст** and authorized its in-game implementation. A persistent F2 panel must adjust X/Y position, text size, native font choice where supported, shadow/outline and block width live. Task/section spacing and tomorrow contrast are useful bounded tuning controls. Save the plugin's own settings without changing game saves. The first installed candidate remains subject to runtime acceptance.
 
+Visual return/refinement: independently tune and hide Today/Tomorrow text, add independently switchable/tunable horizontal lines, and reclaim hidden caption space. Hiding caption text must not hide enabled lines; hiding both consumes no caption row. Add native NPC weekday symbols. Glyph shadow/outline applies only to text, never quest/day symbols. Evaluate optional narrow, softly edged backing under each actual wrapped text line; preserve the lightweight presentation and avoid a whole-block backing. Preserve existing user tuning and expose comparisons in F2. VISUAL_REFINEMENT.md owns evidence and limits.
+
 ## Requested foundation
 
 - A compact task-information display below the left calendar HUD.
