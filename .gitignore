@@ -1,0 +1,23 @@
+# Machine-specific configuration and private research inputs
+LOCAL_ENVIRONMENT.md
+work/
+private/
+.vs/
+.idea/
+
+# Build and handoff outputs (immutable artifacts are retained separately)
+bin/
+obj/
+dist/
+artifacts/
+*.user
+*.suo
+*.log
+
+# Host binaries, private save data and extracted game payloads
+*.dll
+*.exe
+*.pdb
+*.assets
+*.save
+*.dat
