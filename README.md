@@ -4,7 +4,7 @@ A small Graveyard Keeper mod in development that keeps known weekday-NPC tasks v
 
 The display lists today's NPC tasks first and tomorrow's below, including preparation tasks whose items are still missing. It uses the native task text and does not change progression or saves.
 
-**Status:** visual test candidate 0.1.1 in preparation after the first0.1.0 return; in-game acceptance pending. No accepted stable release yet.
+**Status:** visual test candidate0.1.1 prepared after the first0.1.0 return; in-game acceptance pending. No accepted stable release yet.
 
 F2 opens live appearance settings: position, width, two native font templates, text size, line/task/section spacing, shadow or outline and opacity. Close with F2, Esc or the panel button to save settings to the plugin's BepInEx configuration. The settings panel uses the mouse; it blocks gameplay input while open. Native game time is not changed. Task text follows the game language; this candidate's settings are Russian, with Russian/English section headings.
 

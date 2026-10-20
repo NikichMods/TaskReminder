@@ -2,7 +2,13 @@
 
 ## 0.1.1 — captions, native day icons and lightweight readability
 
-Status: source preparation and development checks passed; exact artifact/install identity to be recorded after the clean build. Native visual acceptance pending.
+Status: exact candidate built and installed with the host closed; native visual acceptance pending.
+
+Exact source: `28fa0206decf87a117893bf67395e9c37575fd8b`. Immutable `TaskReminder-0.1.1.dll`, **34,304 bytes**, SHA-256 `3a0cf41ed23d8324d8a79eb238cabded9642490c244bd8a556535736457fe71e`. Clean Release compile, assembly/file version0.1.1.0 and the expanded actual-assembly/header/config migration gate pass. No hosted CI run.
+
+Installed as canonical TaskReminder.dll with identical hash; one active project payload. Previous0.1.0 is backed up outside the plugin directory. Existing config digest remains `995cacabe88d297f81c8fd21b3d094f605e123d515882b662e42d39c77dabf09`; installation did not reset or write it. New controls use defaults on first load and persist when F2 closes. No game process launched, other mod/save changes, or0.1.1 TR_READY/visual observation yet.
+
+Requested return: compare the added native day symbols and clean quest markers; toggle day captions and lines independently to check height reclamation; adjust separate caption size. Compare the planner-style profile and per-line soft shade on/off at the preserved size/width. Shade should follow each wrapped line without covering icons or forming one block. Tune intensity/padding/feather in F2. Read the accessible log after the user reports the visual result; do not replay unrelated gameplay matrices.
 
 Scope/gate: VISUAL_REFINEMENT.md. Separate caption size/visibility and independent divider controls with height collapse; native weekday symbols beside NPC names; no glyph effects/soft bands on icons; optional planner-style raster profile, fractional effect offset and narrow measured per-line soft shading. Preserve the player's existing position/width/font/spacing settings. Policy/heading-combination and actual BepInEx old-config migration/save/reload checks pass. No claim that the new text looks clearer until the user compares it in game.
 
