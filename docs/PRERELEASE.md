@@ -1,6 +1,6 @@
 # Prerelease candidate 0.1.4
 
-On 2026-10-20 the user accepts the tuned 0.1.3 appearance as the final visual direction and requests removal of F2 settings. This is prerelease readiness for continued testing, explicitly not stable promotion. Exact artifact/install identities belong to TEST_LOG.md.
+On 2026-10-20 the user accepts the tuned 0.1.3 appearance as the final visual direction and requests removal of F2 settings. This is prerelease readiness for continued testing, explicitly not stable promotion. Exact0.1.4 bytes are built and installed with the host closed; native return remains pending. Exact artifact/install identities belong to TEST_LOG.md.
 
 ## Production changes — READY before implementation
 

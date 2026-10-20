@@ -2,7 +2,9 @@
 
 ## 0.1.4 — final appearance, no editor; prerelease
 
-Status: implementation and development actual-assembly gate pass; clean-source immutable build/install identity follows. User explicitly limits acceptance to final appearance and prerelease testing. No stable main/tag/Release promotion.
+Status: exact candidate built and installed with the game closed. User explicitly limits acceptance to final appearance and prerelease testing. No stable main/tag/Release promotion.
+
+Exact source602028db4ee2e4843d1e7e63fb11fe648c4a16d5. Immutable TaskReminder-0.1.4.dll,27,136 bytes,SHA-256 db5d1c8d915b514c376813fe3cb7461f6b99aceee140eabf163d7b963361b1e8. Clean exact-source Release/version0.1.4.0/actual-assembly checks pass. Installed canonical TaskReminder.dll matches; one active project payload. Prior0.1.3 DLL/config/receipt backed up outside loading. Final config hash b110c1be59395dd8625e2bb34a9955754291842cc4f91dd3a8ef723e82bb2d2d unchanged. No game launched, other mods/saves changed or0.1.4 native observation claimed.
 
 Scope: every saved final0.1.3 appearance value becomes a shipped default; existing overrides preserved; SettingsPanel/F2/Esc/OnGUI/input guards and transaction helpers removed. Rendering/data/refresh sources are unchanged. PRERELEASE.md owns the READY gate and final baseline.
 
