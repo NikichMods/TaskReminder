@@ -1,6 +1,6 @@
 # Development recovery
 
-Branch: codex/feature/native-reminder. Candidate: 0.1.0. No stable runtime release/acceptance yet. TEST_LOG.md owns exact artifact/install/return identity. The initial gate is in IMPLEMENTATION_GATE.md; data owners are in TASK_DATA_RESEARCH.md.
+Branch: codex/feature/native-reminder. Candidate: 0.1.0, built and installed, awaiting the user's first runtime return. No stable runtime release/acceptance yet. TEST_LOG.md owns exact source/artifact/install identity. The initial gate is in IMPLEMENTATION_GATE.md; data owners are in TASK_DATA_RESEARCH.md.
 
 ## Current behavior
 
