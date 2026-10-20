@@ -2,7 +2,9 @@
 
 ## 0.1.3 — coordinated appearance
 
-Status: development compile/actual-assembly checks pass; exact clean-source build/install identity follows. Gate: VISUAL_REFINEMENT.md. All preceding artifacts remain immutable; no stable promotion.
+Status: exact candidate built and installed with the game closed; native visual acceptance pending. Gate: VISUAL_REFINEMENT.md. All preceding artifacts remain immutable; no stable promotion.
+
+Exact source68b0abc55f26e173574100c8b9b396f411bd0430. Immutable TaskReminder-0.1.3.dll,40,448 bytes,SHA-256 b7b6b1729422422e5f0d8ac076ea61f9f59f10a1c39b6972d8d205808ef72ec2. Clean Release/version0.1.3.0/actual-assembly checks pass. Installed canonical TaskReminder.dll has identical hash; one project payload. Prior0.1.2 and config backed up outside loading. Config SHA-256 dabb2e7c11f1ef9e41ad6c48a847f13293e3bb6e9620a106643a693c65651a14 unchanged. No game launched, Planner/other mods or saves changed. No0.1.3 native observation claimed.
 
 Tests exercise persisted new settings, reversible manual/Planner profile values, actual ConfigFile snapshot rollback/isolated resets, root scale at simulated HUD .75/1/1.1/2, rejection of invalid/rotated coordinate bases and previous native weekday/task/header/input signatures. Runtime symbol wrapping/shadows, name-row collapse, actual coordinate placement and perceived two-block match remain unobserved.
 
