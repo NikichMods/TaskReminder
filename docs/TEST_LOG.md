@@ -2,9 +2,9 @@
 
 ## 0.1.5 — embedded symbol effects only
 
-Status: exact0.1.5 candidate built; installation deferred because the game is running with0.1.4. No stable promotion.
+Status: exact0.1.5 candidate installed after the user closed the game. Native visual return pending; no stable promotion.
 
-Exact source9f62229aa804feca6a2dbef673b722f800a20a1e. Immutable TaskReminder-0.1.5.dll,27,136 bytes,SHA-256 5c708920827dcf0256d8fb001c08db530e5bf2158ef08c1416cc4aea7932ddd5. Clean exact-source Release/version0.1.5.0/actual-assembly checks pass. Installed canonical0.1.4 still hashes db5d1c8d915b514c376813fe3cb7461f6b99aceee140eabf163d7b963361b1e8. Configuration not changed. Host close is required before the verified backup/install loop; no loaded DLL replacement, game launch or0.1.5 runtime observation.
+Exact source9f62229aa804feca6a2dbef673b722f800a20a1e. Immutable TaskReminder-0.1.5.dll,27,136 bytes,SHA-256 5c708920827dcf0256d8fb001c08db530e5bf2158ef08c1416cc4aea7932ddd5. Clean exact-source Release/version0.1.5.0/actual-assembly checks pass. Installed canonical TaskReminder.dll matches the0.1.5 artifact hash; one active project payload. Prior0.1.4/config/closed-session log/receipt backed up outside loading. Configuration SHA-256 b110c1be59395dd8625e2bb34a9955754291842cc4f91dd3a8ef723e82bb2d2d unchanged. No loaded DLL replacement, game launch or0.1.5 runtime observation.
 
 Scope: native NoEffect symbol style on mixed text labels, leaving text Outline and separate marker labels intact. Native Print/ApplyShadow/OnFill/UpdateFinalAlpha evidence is recorded in PRERELEASE.md. No defaults, configuration, text, wraps, placement or gameplay changes. Test the reported graveyard/church rows after installing; original sprite artwork is retained.
 

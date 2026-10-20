@@ -1,6 +1,6 @@
 # Prerelease candidate 0.1.5
 
-On 2026-10-20 the user accepts the tuned 0.1.3 appearance as the final visual direction and requests removal of F2 settings. This is prerelease readiness for continued testing, explicitly not stable promotion. Historical0.1.4 is installed and reaches native TR_READY;0.1.5 is the prepared narrow inline-symbol fix, with installation/return state in TEST_LOG.md. Exact artifact/install identities belong to TEST_LOG.md.
+On 2026-10-20 the user accepts the tuned 0.1.3 appearance as the final visual direction and requests removal of F2 settings. This is prerelease readiness for continued testing, explicitly not stable promotion. Historical0.1.4 is installed and reaches native TR_READY;0.1.5 is the installed narrow inline-symbol fix, with native return pending in TEST_LOG.md. Exact artifact/install identities belong to TEST_LOG.md.
 
 ## Production changes — READY before implementation
 
