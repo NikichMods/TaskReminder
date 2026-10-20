@@ -2,7 +2,7 @@
 
 A lightweight Graveyard Keeper mod that keeps known tasks visible below the calendar on the left of the screen: today's weekday NPC first, tomorrow's below. Preparation tasks remain visible even when their items are missing.
 
-**Status: prerelease candidate 0.1.4, under testing.** The appearance has been selected in game; this is not yet an accepted stable release.
+**Status: prerelease candidate 0.1.5, under testing.** The appearance has been selected in game; this is not yet an accepted stable release.
 
 The compact view uses native localized quest text and markers, Today/Tomorrow captions, thin dividers and soft shading under individual text lines. NPC names are hidden in the selected appearance. There is no whole-block background, settings window or mod hotkey: F2 is free for the game and other mods.
 

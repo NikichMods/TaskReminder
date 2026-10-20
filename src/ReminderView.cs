@@ -118,6 +118,7 @@ namespace TaskReminder
             label.fontSize = template.fontSize; label.fontStyle = template.fontStyle; label.symbolStyle = template.symbolStyle;
             label.spacingX = template.spacingX; label.spacingY = template.spacingY;
             if (fontOverride == null) GJL.EnsureLabelHasCorrectFont(label, false);
+            if (!symbol) label.symbolStyle = NGUIText.SymbolStyle.NoEffect;
             float scale = _style.RasterProfile && !symbol ? size / 24f : 1f;
             label.fontSize = _style.RasterProfile && !symbol ? 24 : size;
             label.spacingY = symbol || _style.Matched ? template.spacingY : Mathf.RoundToInt(_style.LineSpacing / scale);

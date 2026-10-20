@@ -1,5 +1,13 @@
 # Candidate test log
 
+## 0.1.5 — embedded symbol effects only
+
+Status: development compile and existing actual-assembly checks pass; clean-source exact build identity follows. Installed0.1.4 remains active while the game is running. No stable promotion.
+
+Scope: native NoEffect symbol style on mixed text labels, leaving text Outline and separate marker labels intact. Native Print/ApplyShadow/OnFill/UpdateFinalAlpha evidence is recorded in PRERELEASE.md. No defaults, configuration, text, wraps, placement or gameplay changes. Test the reported graveyard/church rows after installing; original sprite artwork is retained.
+
+0.1.4 return: live log snapshot SHA-256 62dc07729e7fcd3a252aebb6d24b2a085d9aace5874829d5db701b91bc188271 records TR_READY; installed DLL matches its recorded hash. User screenshot reports overly thick embedded quality-symbol outlines. Snapshot is live/incomplete and does not establish full lifecycle acceptance.
+
 ## 0.1.4 — final appearance, no editor; prerelease
 
 Status: exact candidate built and installed with the game closed. User explicitly limits acceptance to final appearance and prerelease testing. No stable main/tag/Release promotion.

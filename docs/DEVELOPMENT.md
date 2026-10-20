@@ -1,6 +1,6 @@
 # Development recovery
 
-Current candidate0.1.4 is a prerelease with the final0.1.3 appearance and no F2 editor. Work remains on codex/feature/native-reminder; no main promotion or stable Release. Start PRERELEASE.md for adopted values/gate and TEST_LOG.md for exact source/artifact/install state. Local machine paths and private evidence stay in ignored LOCAL_ENVIRONMENT.md.
+Current candidate0.1.5 is a prerelease with the final0.1.3 appearance and no F2 editor. Work remains on codex/feature/native-reminder; no main promotion or stable Release. Start PRERELEASE.md for adopted values/gate and TEST_LOG.md for exact source/artifact/install state. Local machine paths and private evidence stay in ignored LOCAL_ENVIRONMENT.md.
 
 ## Build
 
@@ -12,7 +12,7 @@ The actual-assembly tests cover native weekday/week wrap, read-only Visible filt
 
 Options now defaults to every saved parameter from the user-adopted0.1.3 view. Existing BepInEx config values remain authoritative overrides; construction disables SaveOnConfigSet and no project save/reset/transaction code remains. Installation preserves the existing cfg. Fresh defaults and the final saved fixture are checked entry by entry. There is no runtime editing/reload UI; later visual changes require another requested build or deliberate external configuration.
 
-Rendering source is unchanged from0.1.3: native text/fonts/icons, narrow measured per-line backing, visibility/layout rules and optional documented Planner style. Final selected view is manual Journal14/Outline/width130/names hidden; Planner matching is off. Exact values are in PRERELEASE.md and the fixture. No full-card rectangle is introduced.
+Rendering retains0.1.3 layout and defaults;0.1.5 changes only mixed-label symbolStyle to native NoEffect, excluding embedded icons from glyph outlines/shadows. Other rendering: native text/fonts/icons, narrow measured per-line backing, visibility/layout rules and optional documented Planner style. Final selected view is manual Journal14/Outline/width130/names hidden; Planner matching is off. Exact values are in PRERELEASE.md and the fixture. No full-card rectangle is introduced.
 
 ## Editor removal
 

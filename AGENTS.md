@@ -7,7 +7,7 @@ Follow [NikichMods/DevRules/WORKING_RULES.md](https://github.com/NikichMods/DevR
 - Project: Task Reminder. Technical identity: TaskReminder. The user confirmed the name on 2026-10-20.
 - Repository: [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public; created by the user and verified through GitHub metadata and Git.
 - Initial target: Graveyard Keeper 1.407, Windows PC, BepInEx 5, matching the existing NikichMods research baseline. Bounded native load/render and final appearance are observed; complete compatibility/functional acceptance is still pending.
-- Phase: prerelease candidate0.1.4 on codex/feature/native-reminder. The user accepts the tuned0.1.3 appearance as final and requests removal of F2. docs/PRERELEASE.md owns the gate/final values; docs/TEST_LOG.md owns exact artifacts. Continued testing remains; stable promotion/publication is not authorized.
+- Phase: prerelease candidate0.1.5 on codex/feature/native-reminder. The user accepts the tuned0.1.3 appearance as final and requests removal of F2. docs/PRERELEASE.md owns the gate/final values; docs/TEST_LOG.md owns exact artifacts. Continued testing remains; stable promotion/publication is not authorized.
 - Purpose: reduce the need to reopen the NPC task list by displaying all known tasks of the current weekday's NPC below the left calendar HUD, followed by the next weekday's NPC tasks, including tasks whose items are still missing.
 
 ## Sources of truth
@@ -44,7 +44,7 @@ Day Wheel Quest Markers is a related evidence source, not this project's product
 - Stable/documentation branch: main. Documentation/bootstrap may go directly to main.
 - Use codex/research/<topic> for substantial investigation and codex/feature/<topic> for unaccepted runtime work.
 - Runtime source reaches main only after explicit acceptance of the exact tested candidate under GIT_WORKFLOW.md.
-- Current candidate version0.1.4, owned by Plugin.Version; assembly/file metadata derive from it.0.1.0 through 0.1.3 are frozen. build.ps1 performs the clean exact-source SDK6.0.406 Roslyn compile/version/actual-assembly policy/final-defaults/config-compatibility/no-editor gate using private installed references. Never overwrite a handed numbered artifact. No hosted CI/reference provisioning is selected.
+- Current candidate version0.1.5, owned by Plugin.Version; assembly/file metadata derive from it.0.1.0 through 0.1.4 are frozen. build.ps1 performs the clean exact-source SDK6.0.406 Roslyn compile/version/actual-assembly policy/final-defaults/config-compatibility/no-editor gate using private installed references. Never overwrite a handed numbered artifact. No hosted CI/reference provisioning is selected.
 - Canonical installed filename: TaskReminder.dll; numbered handoff: TaskReminder-<version>.dll. Handed artifacts are immutable and recorded with exact source, hash and test result.
 - Accepted stable binaries use GitHub Releases; publishing exact accepted bytes follows DevRules acceptance semantics.
 - The selected local exact-source build gate is required. No hosted CI/reference provisioning is selected; do not copy another project's credentials, binaries or CI assumptions.
