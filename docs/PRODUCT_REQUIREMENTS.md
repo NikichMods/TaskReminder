@@ -16,6 +16,8 @@ Follow-up on 2026-10-20: investigate how the game stores/displays tasks and rela
 
 Subsequent decision on the same date: show all known tasks of the current day's NPC even when items are missing, with next day's NPC tasks below. The user authorized an early visual mockup only; production implementation remains deferred.
 
+Later on the same date the user accepted **Лёгкий текст** and authorized its in-game implementation. A persistent F2 panel must adjust X/Y position, text size, native font choice where supported, shadow/outline and block width live. Task/section spacing and tomorrow contrast are useful bounded tuning controls. Save the plugin's own settings without changing game saves. The first installed candidate remains subject to runtime acceptance.
+
 ## Requested foundation
 
 - A compact task-information display below the left calendar HUD.

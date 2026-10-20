@@ -2,7 +2,7 @@
 
 ## Recovery entry point
 
-Phase: documentation and static data research. Read AGENTS.md, PRODUCT_REQUIREMENTS.md, VERIFIED_RUNTIME_DATA.md and TASK_DATA_RESEARCH.md before new research. No mod has been implemented, installed or tested.
+Phase: first native candidate 0.1.0 on codex/feature/native-reminder. The user accepted **Лёгкий текст** and authorized in-game implementation plus persistent F2 tuning. Source and development compile/policy checks exist; exact build/install/return identity is owned by TEST_LOG.md. Runtime acceptance and stable promotion remain pending. Start DEVELOPMENT.md for the current return procedure, then the owning requirements/evidence as needed.
 
 Project identity is confirmed: Task Reminder / [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public. The user created the remote; its initial main commit is 08e9edcf69c96712e97f7010bbd3c5536b5bd289, containing the project title and weekday-task description in README.md. Preserve that history. The existing Codex project and checkout are reused. The repository contract, product/design/evidence documents and license form the documentation baseline; no production implementation is implied.
 
@@ -12,16 +12,16 @@ The user asked for a small text reminder below the calendar. Day Wheel Quest Mar
 
 ## Adopted scope and proposed visual design
 
-The native disclosed-task source is verified statically. The user adopted all known tasks owned by today's NPC, including missing-item preparation tasks, and next day's NPC tasks below. Exact state-edge handling, appearance and the new HUD rendering seam remain unselected/unverified. Prefer native HUD/font/language behavior if the actual lifecycle supports it.
+The user adopted all known tasks owned by today's NPC, including missing-item preparation tasks, and next day's below. Known means explicitly Visible in the first implementation; Complete/Unknown are excluded to preserve disclosed-objective semantics. The user accepted the lightweight preview and requested native live tuning. IMPLEMENTATION_GATE.md records the verified native seam/first-candidate bounds; actual visual and input behavior is awaiting the installed return.
 
 The authorized early mockup compares two presentations of the same adopted content:
 
 - lightweight text with NPC/day headings and no task-block backing;
 - two visually separated sections with restrained dark backing for busy terrain.
 
-Interactive preview states cover current weekday, ordinary/many/empty task lists, day/night contrast and density. The calendar and world backdrop are schematic; task fixtures illustrate layout, not the user's live save. Preview settings and variant selection are not adopted in-game controls. The mockup is illustrative and must not be described as verified in-game rendering. No mod UI implementation is authorized by this design note.
+Historical preview states cover current weekday, ordinary/many/empty task lists, day/night contrast and density. Its calendar/world backdrop and some fixture texts are schematic. The user selected **Лёгкий текст**, then separately authorized in-game implementation and persistent F2 appearance controls. Browser rendering is not installed-game visual acceptance.
 
-Preview names: **Лёгкий текст** and **Две секции**. Both show the same adopted today-then-tomorrow content; the latter separates it with restrained backing and changes heading layout. The ordinary and long-list night variants were inspected in a browser, and offline render/Tweak callback checks cover initial content, week wrap, many tasks, empty today and density/width settings. This verifies only the illustrative preview. Its durable private path is recorded in LOCAL_ENVIRONMENT.md; no appearance has yet been accepted by the user.
+Preview names: **Лёгкий текст** (selected) and **Две секции** (not selected). Preview checks remain historical illustration evidence; the private path is in LOCAL_ENVIRONMENT.md. Native sizes/widths are initial values to tune through F2, not an assertion of pixel equivalence to the browser.
 
 ## Completed data investigation and its decision value
 
@@ -33,8 +33,8 @@ This makes a small text view plausible if the requested meaning is tasks belongi
 
 ## Open decisions / next actions
 
-1. Review the early mockup for task width, separation of today/tomorrow, contrast and long-list behavior. Eligibility and inclusion of next day are settled; do not reopen them without new evidence/user direction. Strict Visible versus stored Unknown remains an edge decision.
-2. After adopting visual scope, investigate only the remaining native rendering/refresh/readiness boundaries needed by it. The current authorization is mockup only; do not start mod implementation.
-3. Only after product selection and the DevRules readiness gate, establish the minimal build and implement a first candidate on a development branch. Promote reusable accepted host findings to GraveyardKeeperResearch through its own safe checkout/workflow; do not disturb its unrelated active research branch.
+1. Finish/return the exact 0.1.0 candidate under TEST_LOG.md; evaluate native placement/text/F2 controls and persistence. Compilation is not runtime acceptance.
+2. Read the accessible installed log after the return; fix concrete defects or preserve accepted tuning values in the next immutable candidate. Eligibility, both day sections and lightweight direction are settled.
+3. Promote reusable accepted host findings to GraveyardKeeperResearch through its own safe checkout/workflow; do not disturb its unrelated active research branch. Stable promotion requires explicit acceptance of the exact tested artifact.
 
-No release number, plugin GUID, build toolchain, hosted runner, dependency graph or test DLL has been selected. Set those from executable needs rather than scaffolding them speculatively.
+Plugin GUID: nikich.gyk.taskreminder. Version owner: Plugin.Version (0.1.0). build.ps1 owns the clean exact-source SDK6.0.406 Roslyn gate against private installed references and actual-assembly policy checks. No hosted runner/reference provisioning is selected. DEVELOPMENT.md owns build instructions; TEST_LOG.md owns immutable artifact/source identity.

@@ -7,7 +7,7 @@ Follow [NikichMods/DevRules/WORKING_RULES.md](https://github.com/NikichMods/DevR
 - Project: Task Reminder. Technical identity: TaskReminder. The user confirmed the name on 2026-10-20.
 - Repository: [NikichMods/TaskReminder](https://github.com/NikichMods/TaskReminder), public; created by the user and verified through GitHub metadata and Git.
 - Initial target: Graveyard Keeper 1.407, Windows PC, BepInEx 5, matching the existing NikichMods research baseline. This project's compatibility has not been tested.
-- Phase: documentation and static data research. Native journal/text and six-NPC weekday data paths are mapped; no production code, build, runtime acceptance or release exists.
+- Phase: first native candidate 0.1.0 on codex/feature/native-reminder. The user accepted the lightweight preview and authorized implementation plus persistent F2 appearance controls. Runtime acceptance and stable release remain pending; docs/TEST_LOG.md owns handed artifact state.
 - Purpose: reduce the need to reopen the NPC task list by displaying all known tasks of the current weekday's NPC below the left calendar HUD, followed by the next weekday's NPC tasks, including tasks whose items are still missing.
 
 ## Sources of truth
@@ -16,6 +16,8 @@ Follow [NikichMods/DevRules/WORKING_RULES.md](https://github.com/NikichMods/DevR
 - docs/DESIGN.md: recovery entry point, proposed direction, research questions and next action.
 - docs/VERIFIED_RUNTIME_DATA.md: prior evidence, provenance and applicability limits.
 - docs/TASK_DATA_RESEARCH.md: static native journal storage/rendering, weekday mapping and their limits.
+- docs/IMPLEMENTATION_GATE.md: initial readiness evidence and first-candidate acceptance boundaries.
+- docs/DEVELOPMENT.md and docs/TEST_LOG.md: build/install/return recovery and exact artifact identity.
 - LOCAL_ENVIRONMENT.md: ignored machine-specific paths and tooling/access observations.
 
 Recover actual Git/files before changes. Do not infer acceptance from tentative discussion, compiled code or another mod's accepted behavior.
@@ -28,10 +30,10 @@ Day Wheel Quest Markers is a related evidence source, not this project's product
 
 ## Product and implementation boundaries
 
-- The requested surface is a small reminder below the left calendar/day wheel: current day's NPC first, next day's NPC below. The user adopted both sections and all-known-task eligibility on 2026-10-20. Exact visual layout remains under review in an illustrative mockup.
+- The adopted surface is lightweight text below the left calendar/day wheel: current day's NPC first, next day's NPC below. Both sections, missing-item task inclusion and the lightweight mockup were adopted on 2026-10-20. In-game visual values remain subject to F2 tuning and user acceptance.
 - Do not silently restrict reminders to immediately hand-in-ready tasks, or expand them to undiscovered tasks/dialogue options.
-- Automatic native-journal sourcing is a proposal to investigate, not a verified implementation.
-- Preserve vanilla task progression, NPC schedules, time, inventory and saves. This bootstrap does not authorize production implementation or gameplay automation.
+- Use the statically verified native-journal path, explicitly Visible records only; Complete and Unknown records are excluded. Missing NPCs produce an unnamed empty section, without disclosing objectives.
+- Preserve vanilla task progression, NPC schedules, time, inventory and saves. The user authorized a presentation mod and persistent F2 settings, not gameplay automation.
 - Verify native localized task text, current-save ownership, weekday mapping, final layout ownership and refresh/hide lifecycle before production relies on them.
 - Prefer a small native HUD extension if evidence supports it. Avoid recurring graph parsing, broad object scans and speculative parallel quest state.
 - Do not commit proprietary game binaries, extracted assets, bulk dialogue/localization/decompiled source, personal context or local save/log data.
@@ -41,7 +43,7 @@ Day Wheel Quest Markers is a related evidence source, not this project's product
 - Stable/documentation branch: main. Documentation/bootstrap may go directly to main.
 - Use codex/research/<topic> for substantial investigation and codex/feature/<topic> for unaccepted runtime work.
 - Runtime source reaches main only after explicit acceptance of the exact tested candidate under GIT_WORKFLOW.md.
-- No version has been consumed. Define the semantic-version owner and executable build gate with the first real build system, before handing any DLL to the user.
+- Initial candidate version 0.1.0, owned by Plugin.Version; assembly/file metadata derive from it. build.ps1 performs the clean exact-source SDK6.0.406 Roslyn compile/version/actual-assembly policy gate using private installed references. Never overwrite a handed numbered artifact. No hosted CI/reference provisioning is selected.
 - Canonical installed filename: TaskReminder.dll; numbered handoff: TaskReminder-<version>.dll. Handed artifacts are immutable and recorded with exact source, hash and test result.
 - Accepted stable binaries use GitHub Releases; publishing exact accepted bytes follows DevRules acceptance semantics.
 - No hosted CI is needed for these documents. Select build tooling, private host references and meaningful checks when executable code exists; do not copy another project's credentials, binaries or CI assumptions.
