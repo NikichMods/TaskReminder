@@ -2,7 +2,9 @@
 
 ## 0.1.2 — settings refinement
 
-Status: implementation and development compile/actual-assembly tests pass; exact handoff identity/install record follows after clean-source build. Gate: VISUAL_REFINEMENT.md.
+Status: exact candidate built and installed with the game closed; runtime acceptance pending. Gate: VISUAL_REFINEMENT.md.
+
+Exact source a979e2382a390e87b9afb815c3528a28fb6bf614. Immutable TaskReminder-0.1.2.dll, 35,328 bytes, SHA-256 dd56a2ea476f1ccd5b03e9cda6bcc6ff980c4ceb2af7b4b40c74428070dfb97c. Clean exact-source Release compile/version0.1.2.0/actual-assembly checks passed. Installed canonical TaskReminder.dll matches that hash; one project payload. Previous0.1.1/config backed up outside the load directory. Config SHA-256 774ad2fc54220903a95c5c99cbea417a25ec284d25be8e33f84a0a4929325732 remained unchanged. No game launched, saves or other mods changed; no0.1.2 runtime observation claimed.
 
 Checks: actual BepInEx config snapshot restores every entry including toggles/font/effect, cancel leaves file bytes unchanged, saved caption/Y-offset survive reload, individual numeric resets leave other entries intact, reopening uses latest saved values. Existing native weekday/task/header/input-signature checks pass. Unity panel controls, vertical shade placement and input restoration still need the installed return.
 
