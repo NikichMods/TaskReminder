@@ -2,7 +2,9 @@
 
 ## 0.1.5 — embedded symbol effects only
 
-Status: development compile and existing actual-assembly checks pass; clean-source exact build identity follows. Installed0.1.4 remains active while the game is running. No stable promotion.
+Status: exact0.1.5 candidate built; installation deferred because the game is running with0.1.4. No stable promotion.
+
+Exact source9f62229aa804feca6a2dbef673b722f800a20a1e. Immutable TaskReminder-0.1.5.dll,27,136 bytes,SHA-256 5c708920827dcf0256d8fb001c08db530e5bf2158ef08c1416cc4aea7932ddd5. Clean exact-source Release/version0.1.5.0/actual-assembly checks pass. Installed canonical0.1.4 still hashes db5d1c8d915b514c376813fe3cb7461f6b99aceee140eabf163d7b963361b1e8. Configuration not changed. Host close is required before the verified backup/install loop; no loaded DLL replacement, game launch or0.1.5 runtime observation.
 
 Scope: native NoEffect symbol style on mixed text labels, leaving text Outline and separate marker labels intact. Native Print/ApplyShadow/OnFill/UpdateFinalAlpha evidence is recorded in PRERELEASE.md. No defaults, configuration, text, wraps, placement or gameplay changes. Test the reported graveyard/church rows after installing; original sprite artwork is retained.
 
