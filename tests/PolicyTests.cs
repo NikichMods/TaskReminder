@@ -12,7 +12,7 @@ internal static class PolicyTests
     {
         _paths = args;
         AppDomain.CurrentDomain.AssemblyResolve += Resolve;
-        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, old-config migration/persistence, settings rollback/isolated defaults, input signatures"); return 0; }
+        try { Run(); Console.WriteLine("PASS native calendar/week-wrap, read-only visible selection, header collapse, old-config migration/persistence, settings rollback/isolated defaults, Planner profile/frame scale, input signatures"); return 0; }
         catch (Exception ex) { Console.Error.WriteLine(ex); return 1; }
     }
     private static Assembly Resolve(object sender, ResolveEventArgs args)
@@ -89,6 +89,39 @@ internal static class PolicyTests
         Require((int)reopened.CaptionSize.DefaultValue == 16 && (int)reopened.ShadeOffsetY.DefaultValue == 0, "Unstable defaults");
         var secondSession = reopened.Capture(); reopened.Width.Value = 300; reopened.Restore(secondSession);
         Require(reopened.Width.Value == 154 && reopened.CaptionSize.Value == 21, "Reopened cancel baseline mismatch");
+        var manual = reopened.Capture();
+        var style = new Appearance(reopened);
+        Require(!style.Matched && style.Width == 154 && style.FontSize == 13 && Math.Abs(style.Scale - 1f) < .0001f, "Manual appearance changed");
+        reopened.MatchPlanner.Value = true;
+        Require(style.Matched && style.Width == 286 && style.FontSize == 24 && style.CaptionSize == 21 && style.Font == NativeFont.Items, "Planner typography mismatch");
+        Require(style.Effect == TextEffect.Outline && style.EffectSize == 1 && Math.Abs(style.EffectAlpha - .8f) < .0001f && !style.RasterProfile, "Planner effect pipeline mismatch");
+        Require(Math.Abs(style.Scale - .65f) < .0001f && style.TomorrowAlpha == 1 && style.TextAlpha == 1 && style.SoftShade, "Planner scale/opacity mismatch");
+        Require(Math.Abs(style.ShadeAlpha - .39f) < .0001f && style.Feather(24) == 12, "Narrow Planner shade mismatch");
+        reopened.ScalePercent.Value = 150;
+        Require(Math.Abs(style.Scale - .975f) < .0001f, "Whole block multiplier mismatch");
+        reopened.ShowNames.Value = false; reopened.QuestIconSize.Value = 36; reopened.QuestIconShadow.Value = true;
+        reopened.Save();
+        var matchedReload = new Options(new BepInEx.Configuration.ConfigFile(configPath, false));
+        Require(matchedReload.MatchPlanner.Value && !matchedReload.ShowNames.Value && matchedReload.QuestIconSize.Value == 36 && matchedReload.QuestIconShadow.Value && matchedReload.ScalePercent.Value == 150, "New settings did not persist");
+        reopened.Restore(manual);
+        foreach (var item in manual) Require(Equals(item.Key.BoxedValue, item.Value), "Style mode changed manual settings");
+        Require(style.Width == 154 && style.FontSize == 13 && style.CaptionSize == 21, "Manual style not restored");
+        foreach (float hudScale in new[] { .75f, 1f, 1.1f, 2f })
+        {
+            var converted = Appearance.InHudScale(new UnityEngine.Vector3(1f / hudScale, 0, 0), new UnityEngine.Vector3(0, 1f / hudScale, 0), .65f);
+            Require(Math.Abs(converted.x * hudScale - .65f) < .0001f && Math.Abs(converted.y * hudScale - .65f) < .0001f, "HUD scale doubled in Planner mode");
+        }
+        foreach (float invalid in new[] { 0f, -1f, float.NaN, float.PositiveInfinity })
+        {
+            bool invalidRejected = false;
+            try { Appearance.InHudScale(new UnityEngine.Vector3(invalid, 0, 0), new UnityEngine.Vector3(0, 1, 0), .65f); }
+            catch (InvalidOperationException) { invalidRejected = true; }
+            Require(invalidRejected, "Invalid coordinate scale accepted");
+        }
+        bool rotatedRejected = false;
+        try { Appearance.InHudScale(new UnityEngine.Vector3(1, .1f, 0), new UnityEngine.Vector3(0, 1, 0), .65f); }
+        catch (InvalidOperationException) { rotatedRejected = true; }
+        Require(rotatedRejected, "Rotated coordinate basis accepted");
         foreach (string name in new[] { "GetKey", "GetKeyDown", "AnyClick", "AnyKeyDown" })
         {
             bool found = false;

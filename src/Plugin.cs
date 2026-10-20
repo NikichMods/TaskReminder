@@ -11,7 +11,7 @@ namespace TaskReminder
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Guid = "nikich.gyk.taskreminder";
-        public const string Version = "0.1.2";
+        public const string Version = "0.1.3";
         internal static Plugin Instance;
         private readonly FieldInfo _inventory = AccessTools.Field(typeof(GameSave), "_inventory");
         private readonly FieldInfo _playerData = AccessTools.Field(typeof(WorldGameObject), "_data");
@@ -85,7 +85,7 @@ namespace TaskReminder
         private void OnGUI() { if (!_failed && _settings != null) try { _settings.Draw(); } catch (Exception ex) { Fail(ex); } }
         internal void Changed() { _dirty = true; }
         internal int DisplayHeight { get { return _view == null ? 0 : _view.Height; } }
-        internal void LogSettings() { Logger.LogInfo("TR_SETTINGS x=" + _options.X.Value + " y=" + _options.Y.Value + " width=" + _options.Width.Value + " font=" + _options.Font.Value + " size=" + _options.FontSize.Value + " effect=" + _options.Effect.Value + " caption=" + _options.ShowCaptions.Value + " divider=" + _options.ShowDividers.Value + " profile=" + _options.PlannerProfile.Value + " shade=" + _options.SoftShade.Value + " shade_y=" + _options.ShadeOffsetY.Value); }
+        internal void LogSettings() { Logger.LogInfo("TR_SETTINGS x=" + _options.X.Value + " y=" + _options.Y.Value + " width=" + _options.Width.Value + " font=" + _options.Font.Value + " size=" + _options.FontSize.Value + " effect=" + _options.Effect.Value + " caption=" + _options.ShowCaptions.Value + " divider=" + _options.ShowDividers.Value + " profile=" + _options.PlannerProfile.Value + " shade=" + _options.SoftShade.Value + " shade_y=" + _options.ShadeOffsetY.Value + " names=" + _options.ShowNames.Value + " quest_icon=" + _options.QuestIconSize.Value + " quest_shadow=" + _options.QuestIconShadow.Value + " scale_pct=" + _options.ScalePercent.Value + " match_planner=" + _options.MatchPlanner.Value); }
         private void Fail(Exception ex)
         {
             if (_failed) return; _failed = true;

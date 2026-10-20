@@ -1,6 +1,6 @@
 # Development recovery
 
-Branch: codex/feature/native-reminder. Current candidate0.1.2 adds reversible settings editing to the bounded0.1.1 return. No stable runtime release/acceptance yet. TEST_LOG.md owns exact source/artifact/install identity. Initial gate: IMPLEMENTATION_GATE.md; visual-refinement gate: VISUAL_REFINEMENT.md; data owners: TASK_DATA_RESEARCH.md.
+Branch: codex/feature/native-reminder. Current candidate0.1.3 adds coordinated Planner appearance after the bounded0.1.2 load/settings return. No stable runtime release/acceptance yet. TEST_LOG.md owns exact source/artifact/install identity. Initial gate: IMPLEMENTATION_GATE.md; visual-refinement gate: VISUAL_REFINEMENT.md; data owners: TASK_DATA_RESEARCH.md.
 
 ## Current behavior
 
@@ -25,6 +25,18 @@ Readability comparisons in F2: ordinary text versus planner-style raster24/scali
 While open, capture/disable player control and the HUD event camera's mouse/touch/keyboard/controller input; guard native LazyInput families, including a closing-frame grace period. Restore captured flags on close/loading/native-window transition/disable/destroy/failure. Do not change native timeScale or saves. Raw Unity-key bindings in unrelated mods are not an exclusive-key contract.
 
 Native text is localized by GJL. User controls set size/spacing after native language-font correction; journal/item templates may converge in CJK. Settings are Russian; authored section headings are Russian in ru and English otherwise. Broader editor localization/controller editing is not claimed for this candidate.
+
+## Coordinated appearance (0.1.3)
+
+F2 starts with an independent Show NPC names/day icons switch (off releases the full row/gap), quest-circle size8..48 and native glyph-shadow toggle. The symbol's measured width reserves the task indent; row height includes both text and symbol. Symbols never receive rectangular soft backing. Weekday icon size remains its own setting.
+
+Whole-block scale60..150% scales all owned labels/icons/lines/shade about the calendar anchor; position/calendar offsets stay fixed.100% means the selected style's baseline. In manual mode this preserves the existing HUD scale inheritance.
+
+Match Building Planner is an optional reversible local style overlay, not a runtime dependency. Reference: installed Planner1.0.4, frozen080ff539c0e2b439d7525b2eff4ecf4b008bd3b0; its PlannerStyle/PlannerPresentation files establish craft font24, root65%, width286, native spacing, Outline1/.8, text(.94,.90,.80), backing(.07,.067,.055)/.39. Matching uses the same native template and compensates actual HUD versus screen reference scaling. Axis-invalid frames disable this candidate rather than silently claim a match. Caption font21 matches the Planner column labels; names use body24. Its framed location-banner title is a separate surface and is not imported.
+
+Matched mode overrides width, body/name/caption sizes, font/raster/effect, spacing, section/task gaps, text/tomorrow opacity and line backing style. Related manual controls are disabled while matched; values are never rewritten, so toggling off restores the custom appearance. Visibility, names, day icons/dividers and quest-circle size/shadow remain independently adjustable. The scale slider multiplies the matched65% baseline (100%=65%,150%=97.5%). This is a profile of the documented installed version, not automatic tracking of future Planner edits.
+
+Per-line backing remains separate measured textures; Planner feather28 is capped to half each narrow line's height. Position remains under the left calendar. No full-card rectangle or Planner columns/banner/actions are created. Actual two-block visual matching, wrapping and input/lifecycle acceptance require the installed return; compile/profile/basis/config checks cannot prove subjective identity.
 
 ## First installed return
 

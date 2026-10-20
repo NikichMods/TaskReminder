@@ -9,8 +9,8 @@ namespace TaskReminder
     internal sealed class Options
     {
         internal readonly ConfigEntry<int> X, Y, Width, FontSize, HeadingSize, LineSpacing, TaskGap, SectionGap, CalendarGap;
-        internal readonly ConfigEntry<int> CaptionSize, DividerLength, DividerThickness, IconSize, ShadePaddingX, ShadePaddingY, ShadeFeather, ShadeOffsetY;
-        internal readonly ConfigEntry<bool> ShowCaptions, ShowDividers, PlannerProfile, SoftShade;
+        internal readonly ConfigEntry<int> CaptionSize, DividerLength, DividerThickness, IconSize, ShadePaddingX, ShadePaddingY, ShadeFeather, ShadeOffsetY, QuestIconSize, ScalePercent;
+        internal readonly ConfigEntry<bool> ShowCaptions, ShowDividers, PlannerProfile, SoftShade, ShowNames, QuestIconShadow, MatchPlanner;
         internal readonly ConfigEntry<float> EffectSize, DividerAlpha, ShadeAlpha;
         internal readonly ConfigEntry<float> TomorrowAlpha, TextAlpha, EffectAlpha;
         internal readonly ConfigEntry<NativeFont> Font;
@@ -37,6 +37,11 @@ namespace TaskReminder
             ShadePaddingY = Integer("ShadePaddingY", 1, 0, 8, "Soft per-line backing vertical padding.");
             ShadeFeather = Integer("ShadeFeather", 4, 1, 12, "Soft per-line backing edge feather.");
             ShadeOffsetY = Integer("ShadeOffsetY", 0, -24, 24, "Soft backing vertical offset; positive moves up without moving text.");
+            QuestIconSize = Integer("QuestIconSize", 16, 8, 48, "Printed quest symbol height, independent of text and weekday symbols.");
+            ScalePercent = Integer("BlockScalePercent", 100, 60, 150, "Whole-block multiplier relative to the selected style, in percent.");
+            ShowNames = config.Bind("Appearance", "ShowNpcNames", true, "Show NPC name and weekday symbol row; off releases its space.");
+            QuestIconShadow = config.Bind("Appearance", "QuestIconShadow", false, "Native glyph shadow on quest circles only, never a backing rectangle.");
+            MatchPlanner = config.Bind("Appearance", "MatchBuildingPlanner", false, "Use the documented Building Planner1.0.4 style without changing manual values or requiring that mod.");
             ShowCaptions = config.Bind("Appearance", "ShowDayCaptions", true, "Show Today/Tomorrow text independently of dividers.");
             ShowDividers = config.Bind("Appearance", "ShowDayDividers", true, "Keep dividers when captions are hidden; both off removes the row.");
             PlannerProfile = config.Bind("Appearance", "PlannerTextProfile", true, "Rasterize text at24 then scale, matching the planner rendering approach.");

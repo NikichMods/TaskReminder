@@ -1,8 +1,16 @@
 # Candidate test log
 
+## 0.1.3 — coordinated appearance
+
+Status: development compile/actual-assembly checks pass; exact clean-source build/install identity follows. Gate: VISUAL_REFINEMENT.md. All preceding artifacts remain immutable; no stable promotion.
+
+Tests exercise persisted new settings, reversible manual/Planner profile values, actual ConfigFile snapshot rollback/isolated resets, root scale at simulated HUD .75/1/1.1/2, rejection of invalid/rotated coordinate bases and previous native weekday/task/header/input signatures. Runtime symbol wrapping/shadows, name-row collapse, actual coordinate placement and perceived two-block match remain unobserved.
+
+Requested targeted return: toggle Planner style on/off beside the real right block; compare size/readability and retained manual style. Hide names/day symbols, enlarge quest circles and toggle their shadows. Change whole-block scale with long wrapped text and verify lines/backing/anchor stay coherent. Esc should restore these controls; F2 should save. Existing gameplay eligibility remains unchanged and needs no repeated broad matrix for this downstream change.
+
 ## 0.1.2 — settings refinement
 
-Status: exact candidate built and installed with the game closed; runtime acceptance pending. Gate: VISUAL_REFINEMENT.md.
+Status: historical candidate loaded and reached TR_READY; settings saves at X10/Items14/Outline/shadeY-3 observed. Preserved return log SHA-256 3b1b6c7d10a33022e740b62e0f3174db1b5dd9d55b91ce84de8e3e7c5ff41c7e; config SHA-256 dabb2e7c11f1ef9e41ad6c48a847f13293e3bb6e9620a106643a693c65651a14. User requests further controls; full native input/cancel/restart/visual acceptance remains pending. Gate: VISUAL_REFINEMENT.md.
 
 Exact source a979e2382a390e87b9afb815c3528a28fb6bf614. Immutable TaskReminder-0.1.2.dll, 35,328 bytes, SHA-256 dd56a2ea476f1ccd5b03e9cda6bcc6ff980c4ceb2af7b4b40c74428070dfb97c. Clean exact-source Release compile/version0.1.2.0/actual-assembly checks passed. Installed canonical TaskReminder.dll matches that hash; one project payload. Previous0.1.1/config backed up outside the load directory. Config SHA-256 774ad2fc54220903a95c5c99cbea417a25ec284d25be8e33f84a0a4929325732 remained unchanged. No game launched, saves or other mods changed; no0.1.2 runtime observation claimed.
 

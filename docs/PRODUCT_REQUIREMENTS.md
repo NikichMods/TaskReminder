@@ -57,3 +57,7 @@ Once eligibility and display choices are adopted, exercise representative real p
 ## Adopted settings refinement (0.1.2)
 
 Soft per-line backing can move vertically without moving text. Every slider has an individual reset to the shipped0.1.1 defaults; caption default is fixed at fresh-install16, independent of tuned body size. Current saved values are preserved. All changes preview live: explicit Save/F2 persists; Cancel/Esc restores the entire opening state, including toggles and font. Forced panel closure also discards edits.
+
+## Adopted coordinated appearance (0.1.3)
+
+Hide NPC names together with weekday symbols and reclaim their row. Independently resize quest circles and toggle their glyph shadows. Scale the entire block in percent. A reversible Building Planner style toggle uses its verified installed typography/effect/color/scale and applicable spacing/backing settings; preserve the left-calendar anchor and separate per-text-line backing, with no whole-block rectangle. Visibility and quest-symbol controls stay independent. The percentage is relative to the selected style. Existing manual values, config cancellation and task semantics remain intact.
